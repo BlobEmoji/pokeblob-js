@@ -11,7 +11,7 @@ class Exec extends Command {
       category: 'System',
       extended: 'This will spawn a child process and execute the given command.',
       botPerms: ['SEND_MESSAGES'],
-      permLevel: 'Police'
+      permLevel: 'Bot Owner'
     });
   }
 

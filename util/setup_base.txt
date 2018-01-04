@@ -1,12 +1,6 @@
 const config = {
   // Bot Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
-  // will pull this information directly from it's application page.
-
-  // Bot Admins, level 9 by default. Array of user ID strings.
-  "admins": [],
-
-  // Bot Support, level 8 by default. Array of user ID strings
-  "support": [],
+  // will pull this information directly from it's application page
 
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
   "token":  {{token}},
