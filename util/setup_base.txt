@@ -1,24 +1,24 @@
 const config = {
   // Bot Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
-  // will pull this information directly from it's application page
-
+  // will pull this information directly from it's application page.
+  
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
-  "token":  {{token}},
+  'token':  'Mzc5NDAyMDk1OTE0MTIzMjY0.DS8WIg.ONDBa6yp3DlUUhCh0GDE5iryzxo',
 
   // Default per-server settings. These settings are entered in a database on first load, 
   // And are then completely ignored from this file. To modify default settings, use the `conf` command.
   // DO NOT REMOVE THIS BEFORE YOUR BOT IS LOADED AND FUNCTIONAL.
   
-  "defaultSettings" : {
-    "prefix": "-",
-    "modLogChannel": "mod-log",
+  'defaultSettings' : {
+    'prefix': '-',
+    'modLogChannel': 'mod-log',
     'traineeRole': 'Council Trainee',
     'councilRole': 'Blob Council',
     'policeRole': 'Blob Police',
-    "systemNotice": "true",
-    "welcomeEnabled": "false",
-    "welcomeChannel": "welcome",
-    "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
+    'systemNotice': 'true',
+    'welcomeEnabled': 'false',
+    'welcomeChannel': 'welcome',
+    'welcomeMessage': 'Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D',
     'blobCoin': '398579309276823562'
   },
 
@@ -43,8 +43,8 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message) => {
         try {
-          const traineeRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.traineeRole.toLowerCase());
-          if (traineeRole && message.member.roles.has(traineeRole.id)) return true;
+          const config = require('./config.js');
+          if (message.member.roles.has(config.traineeRole)) return true;
         } catch (e) {
           return false;
         }
@@ -55,8 +55,8 @@ const config = {
       name: 'Council', 
       check: (message) => {
         try {
-          const councilRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.councilRole.toLowerCase());
-          return (councilRole && message.member.roles.has(councilRole.id));
+          const config = require('./config.js');
+          if (message.member.roles.has(config.councilRole)) return true;
         } catch (e) {
           return false;
         }
@@ -67,8 +67,8 @@ const config = {
       name: 'Police', 
       check: (message) => {
         try {
-          const policeRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.policeRole.toLowerCase());
-          return (policeRole && message.member.roles.has(policeRole.id));
+          const config = require('./config.js');
+          if (message.member.roles.has(config.policeRole)) return true;
         } catch (e) {
           return false;
         }
