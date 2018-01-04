@@ -6,14 +6,16 @@ const fs = require('fs');
 let baseConfig = fs.readFileSync('./util/setup_base.txt', 'utf8');
 
 const defaultSettings = `{
-  "prefix": "-",
-  "modLogChannel": "mod-log",
-  "modRole": "Moderator",
-  "adminRole": "Administrator",
-  "systemNotice": "true",
-  "welcomeChannel": "welcome",
-  "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
-  "welcomeEnabled": "false"
+  'prefix': '-',
+  'modLogChannel': 'mod-log',
+  'traineeRole': '395299609196494861',
+  'councilRole': '294928463536586754',
+  'policeRole': '295476842935353345',
+  'systemNotice': 'true',
+  'welcomeEnabled': 'false',
+  'welcomeChannel': 'welcome',
+  'welcomeMessage': 'Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D',
+  'blobCoin': '398579309276823562'
 }`;
 
 const settings = new Enmap({provider: new EnmapLevel({name: 'settings'})});

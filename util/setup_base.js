@@ -1,3 +1,5 @@
+const roles = require('./config.js');
+
 const config = {
   // Bot Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
   // will pull this information directly from it's application page.
@@ -42,36 +44,21 @@ const config = {
       // If they do return true, which will allow them to execute the command in question.
       // If they don't then return false, which will prevent them from executing the command.
       check: (message) => {
-        try {
-          const config = require('./config.js');
-          if (message.member.roles.has(config.traineeRole)) return true;
-        } catch (e) {
-          return false;
-        }
+        return message.member.roles.has(roles.traineeRole);
       }
     },
 
     { level: 3,
       name: 'Council', 
       check: (message) => {
-        try {
-          const config = require('./config.js');
-          if (message.member.roles.has(config.councilRole)) return true;
-        } catch (e) {
-          return false;
-        }
+        return message.member.roles.has(roles.councilRole);
       }
     },
     // Bot Admin has some limited access like rebooting the bot or reloading commands.
     { level: 9,
       name: 'Police', 
       check: (message) => {
-        try {
-          const config = require('./config.js');
-          if (message.member.roles.has(config.policeRole)) return true;
-        } catch (e) {
-          return false;
-        }
+        return message.member.roles.has(roles.policeRole);
       }
     },
     // This is the bot owner, this should be the highest permission level available.
