@@ -18,9 +18,6 @@ const config = {
     'councilRole': 'Blob Council',
     'policeRole': 'Blob Police',
     'systemNotice': 'true',
-    'welcomeEnabled': 'false',
-    'welcomeChannel': 'welcome',
-    'welcomeMessage': 'Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D',
     'blobCoin': '398579309276823562'
   },
 

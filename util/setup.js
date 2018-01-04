@@ -12,9 +12,6 @@ const defaultSettings = `{
   'councilRole': '294928463536586754',
   'policeRole': '295476842935353345',
   'systemNotice': 'true',
-  'welcomeEnabled': 'false',
-  'welcomeChannel': 'welcome',
-  'welcomeMessage': 'Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D',
   'blobCoin': '398579309276823562'
 }`;
 
