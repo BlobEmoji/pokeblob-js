@@ -1,6 +1,6 @@
-const Command = require('../base/Command.js');
+const Social = require('../base/Social.js');
 
-class Score extends Command {
+class Score extends Social {
   constructor(client) {
     super(client, {
       name: 'score',
@@ -14,9 +14,8 @@ class Score extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const member = args[0] ? await this.verifyMember(message, args[0]) : message.member;
-    const score = member.score;
-    message.channel.send(`You currently have ${score.points}`);
+    const points = await this.client.points.get(`${message.guild.id}-${message.author.id}`);
+    message.channel.send(`You currently have ${points.points}.`);
   }
 }
 

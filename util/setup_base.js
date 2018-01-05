@@ -18,7 +18,9 @@ const config = {
     'councilRole': 'Blob Council',
     'policeRole': 'Blob Police',
     'systemNotice': 'true',
-    'blobCoin': '398579309276823562'
+    'blobCoin': '398579309276823562',
+    'minPoints': 5,
+    'maxPoints': 1000
   },
 
   // PERMISSION LEVEL DEFINITIONS.

@@ -12,7 +12,9 @@ const defaultSettings = `{
   "councilRole": "294928463536586754",
   "policeRole": "295476842935353345",
   "systemNotice": "true",
-  "blobCoin": "398579309276823562"
+  "blobCoin": "398579309276823562",
+  "minPoints": "5",
+  "maxPoints": "1000"
 }`;
 
 const settings = new Enmap({provider: new EnmapLevel({name: 'settings'})});

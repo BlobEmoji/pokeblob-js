@@ -37,6 +37,23 @@ class Social extends Command {
     return score.level;
   }
 
+  async usrBal(message, user) {
+    const id = await this.verifySocialUser(user);
+    const score = this.client.points.get(`${message.guild.id}-${id}`) || this.client.points.set(`${message.guild.id}-${id}`, {
+      points: 0,
+      level: 0,
+      user: id,
+      guild: message.guild.id,
+      daily: 1504120109
+    }).get(`${message.guild.id}-${id}`);
+    const level = this.ding(message.guild.id, score);
+    score.level = level;
+    this.client.points.set(`${message.guild.id}-${id}`, score);
+    const YouThey = id === message.author.id ? 'You' : 'They';
+    const YouThem = YouThey.length > 3 ? 'them' : 'you';
+    return score ? `${YouThey} currently have ${score.points} ${this.emoji(message.guild.id)}'s, which makes ${YouThem} level ${score.level}!` : `${YouThey} have no ${this.emoji(message.guild.id)}'s, or levels yet.`;
+  }
+
   async cmdPay(message, user, cost, perms) {
     const amount = parseInt(cost) * parseInt(perms.length) * Math.floor(parseInt(message.settings.costMulti));
     try {
