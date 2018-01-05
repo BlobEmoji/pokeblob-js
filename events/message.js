@@ -1,3 +1,5 @@
+const monitor = require('../monitors/monitor.js');
+
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
@@ -22,6 +24,11 @@ module.exports = class {
     // to the message object, so `message.settings` is accessible.
     message.settings = settings;
 
+    // Get the user or member's permission level from the elevation
+    const level = this.client.permlevel(message);
+    // Run the monitor
+    // monitor.run(this.client, message, level);
+    
     // Also good practice to ignore any message that does not start with our prefix,
     // which is set in the configuration file.
     const mentionPrefix = new RegExp(`^<@!?${this.client.user.id}> `);
@@ -48,9 +55,6 @@ module.exports = class {
     // args = ["Is", "this", "the", "real", "life?"]
     const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-
-    // Get the user or member's permission level from the elevation
-    const level = this.client.permlevel(message);
 
     // Check whether the command, or alias, exist in the collections defined
     // in app.js.

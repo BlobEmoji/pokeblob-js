@@ -1,5 +1,4 @@
-const Command = require(`${process.cwd()}/base/Command.js`);
-const moment = require('moment');
+const Command = require('./Command.js');
 class Social extends Command {
 
   constructor(client, options) {
