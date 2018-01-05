@@ -37,8 +37,8 @@ class Command {
       const match = /(?:<@!?)?([0-9]{17,20})>?/gi.exec(user);
       if (!match) throw 'Invalid user';
       const id = match[1];
-      const check = await this.client.fetchUser(id);
-      if (check.username !== undefined) return check;
+      const check = await this.client.users.fetch(id);
+      if (check.username !== undefined) return id;
     } catch (error) {
       throw error;
     }
@@ -46,7 +46,7 @@ class Command {
 
   async verifyMember(guild, member) {
     const user = await this.verifyUser(member);
-    const target = await guild.fetchMember(user);
+    const target = await guild.members.fetch(user);
     return target;
   }
   async verifyMessage(message, msgid) {
@@ -54,7 +54,7 @@ class Command {
       const match = /([0-9]{17,20})/.exec(msgid);
       if (!match) throw 'Invalid message id.';
       const id = match[1];
-      const check = await message.channel.fetchMessage(id);
+      const check = await message.channel.messages.fetch(id);
       if (check.cleanContent !== undefined) return id;
     } catch (error) {
       throw error;

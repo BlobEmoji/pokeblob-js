@@ -36,8 +36,6 @@ class PokeBlob extends Discord.Client {
     this.inventory = new Enmap({ provider: new EnmapLevel({ name: 'inventory' }) });
     this.stats = new Enmap({ provider: new EnmapLevel({ name: 'stats' }) });
     this.store = new Enmap({ provider: new EnmapLevel({ name: 'store' }) });
-
-    //requiring the Logger class for easy console logging
   }
 
   /*
