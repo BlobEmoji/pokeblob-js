@@ -1,4 +1,4 @@
-const monitor = require('../monitors/monitor.js');
+// const monitor = require('../monitors/monitor.js');
 
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
@@ -27,7 +27,7 @@ module.exports = class {
     // Get the user or member's permission level from the elevation
     const level = this.client.permlevel(message);
     // Run the monitor
-    monitor.run(this.client, message, level);
+    // monitor.run(this.client, message, level);
     
     // Also good practice to ignore any message that does not start with our prefix,
     // which is set in the configuration file.

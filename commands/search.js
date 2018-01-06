@@ -5,7 +5,6 @@ class Search extends Command {
     super(client, {
       name: 'search',
       description: 'Search the tall grass for an item.',
-      category: '',
       usage: 'search',
       guildOnly: true,
       extended: 'Search the tall grass in hopes of finding something. Consumes one energy.',

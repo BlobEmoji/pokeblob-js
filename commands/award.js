@@ -6,7 +6,7 @@ class Award extends Social {
       name: 'award',
       description: 'Gives a nominated user points.',
       usage: 'award <@mention|userid> <amount>',
-      category: 'Social',
+      category: 'Moderation',
       extended: 'This will give points to a nominated user.',
       cost: 0,
       hidden: true,
