@@ -175,6 +175,20 @@ const init = async () => {
     if (response) console.log(response);
   });
 
+  const extendList = [];
+  klaw('./extenders').on('data', (item) => {
+    const extFile = path.parse(item.path);
+    if (!extFile.ext || extFile.ext !== '.js') return;
+    try {
+      require(`${extFile.dir}${path.sep}${extFile.base}`);
+      extendList.push(extFile.name);
+    } catch (error) {
+      console.log(`Error loading ${extFile.name} extension: ${error}`);
+    }
+  }).on('end', () => {
+    console.log(`[Log] [Log] Loaded a total of ${extendList.length} extensions.`);
+  }).on('error', (error) => console.log(error));
+  
   const evtFiles = await readdir('./events/');
   client.log('Log', `Loading a total of ${evtFiles.length} events.`);
   evtFiles.forEach(file => {
