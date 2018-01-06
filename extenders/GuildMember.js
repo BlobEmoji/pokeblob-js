@@ -8,6 +8,11 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
       this.fullId = `${this.guild.id}-${this.id}`;
     }
 
+    get inventory() {
+      if (!this.client.inventory.get(this.fullId)) return false;
+      return this.client.inventory.get(this.fullId);
+    }
+
     get score() {
       if (!this.client.points.get(this.fullId)) return { points: 0, level: 0, user: this.id, guild: this.guild.id, daily: 1504120109 };
       return this.client.points.get(this.fullId);
