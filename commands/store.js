@@ -72,6 +72,7 @@ class Store extends Social {
       }
 
       case ('add'): {
+        if (level < 9) message.response(undefined, 'You cannot add items to the shop.');
         const price = args.pop();
         const name = args.join(' ');
 
@@ -88,6 +89,7 @@ class Store extends Social {
       }
 
       case ('del'): {
+        if (level < 9) message.response(undefined, 'You cannot delete items from the store.');
         const name = args.join(' ');
         if (!name) return message.reply('Please specify the exact name of the item');
         
