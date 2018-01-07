@@ -11,5 +11,9 @@ module.exports = Structures.extend('Message', DiscordMessage => {
       return this.channel.send(`${this.author} \`|${emoji}|\` ${content}`, embed);
     }
 
+    buildEmbed() {
+      return this.channel.buildEmbed();
+    }
+
   };
 });
