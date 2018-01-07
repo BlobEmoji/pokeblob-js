@@ -13,10 +13,7 @@ const defaultSettings = `{
   "policeRole': "Blob Police",
   "systemNotice': true,
   "minPoints': 5,
-  "maxPoints': 1000,
-  "customEmoji': true,
-  "gEmojiID': "replace-this",
-  "uEmoji": "$"
+  "maxPoints': 1000
 }`;
 
 const settings = new Enmap({provider: new EnmapLevel({name: 'settings'})});
