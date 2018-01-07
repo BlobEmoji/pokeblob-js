@@ -20,7 +20,7 @@ class Social extends Command {
   }
 
   emoji(guild) {
-    const settings = this.client.settings.get(guild.id);
+    const settings = this.client.getSettings(guild.id);
     if (settings.customEmoji === 'true') return this.client.emojis.get(settings.gEmojiID);
     return settings.uEmoji;
   }
