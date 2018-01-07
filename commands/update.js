@@ -14,7 +14,7 @@ class Update extends Command {
       hidden: true,
       aliases: ['git', 'pull'],
       botPerms: [],
-      permLevel: 'Bot Admin'
+      permLevel: 'Police'
     });
   }
 
