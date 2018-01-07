@@ -20,7 +20,7 @@ class Social extends Command {
   }
 
   emoji(guild) {
-    const settings = this.client.getSettings(guild);
+    const settings = this.client.settings.get(guild.id);
     if (settings.customEmoji === 'true') return this.client.emojis.get(settings.gEmojiID);
     return settings.uEmoji;
   }
@@ -75,11 +75,11 @@ class Social extends Command {
   async cmdRew(message, user, amount) {
     try {
       const getPayee = message.guild.member(user);
-      getPayee.givePoints(parseInt(amount));
+      getPayee.giveEnergy(parseInt(amount));
       await message.channel.send(`Awarded ${this.emoji(message.guild.id)}${parseInt(amount)} points to ${message.guild.member(user).displayName}.`);
       return;
     } catch (error) {
-      console.log.error(error);
+      console.log(error);
     }
   }
 

@@ -13,21 +13,21 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
       return this.client.inventory.get(this.fullId);
     }
 
-    get score() {
-      if (!this.client.points.get(this.fullId)) return { points: 0, level: 0, user: this.id, guild: this.guild.id, daily: 1504120109 };
-      return this.client.points.get(this.fullId);
+    get energy() {
+      if (!this.client.energy.get(this.fullId)) return { points: 0, level: 0, user: this.id, guild: this.guild.id, daily: 1504120109 };
+      return this.client.energy.get(this.fullId);
     }
 
-    givePoints(points) {
-      const score = this.score;
-      score.points += points;
-      return this.client.points.set(this.fullId, score);
+    giveEnergy(points) {
+      const energy = this.energy;
+      energy.points += points;
+      return this.client.energy.set(this.fullId, energy);
     }
 
     takePoints(points) {
-      const score = this.score;
-      score.points -= points;
-      return this.client.points.set(this.fullId, score);
+      const energy = this.energy;
+      energy.points -= points;
+      return this.client.energy.set(this.fullId, energy);
     }
 
     setLevel(level) {

@@ -14,8 +14,8 @@ class Score extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const points = await this.client.points.get(`${message.guild.id}-${message.author.id}`);
-    message.channel.send(`You currently have ${points.points} energy.`);
+    const energy = await this.client.energy.get(`${message.guild.id}-${message.author.id}`);
+    message.channel.send(`You currently have ${energy.points} energy.`);
   }
 }
 

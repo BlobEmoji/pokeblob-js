@@ -7,14 +7,16 @@ let baseConfig = fs.readFileSync('./util/setup_base.js', 'utf8');
 
 const defaultSettings = `{
   "prefix": "-",
-  "modLogChannel": "mod-log",
-  "traineeRole": "395299609196494861",
-  "councilRole": "294928463536586754",
-  "policeRole": "295476842935353345",
-  "systemNotice": "true",
-  "blobCoin": "398579309276823562",
-  "minPoints": "5",
-  "maxPoints": "1000"
+  "modLogChannel': "mod-log",
+  "traineeRole': "Council Trainee",
+  "councilRole': "Blob Council",
+  "policeRole': "Blob Police",
+  "systemNotice': true,
+  "minPoints': 5,
+  "maxPoints': 1000,
+  "customEmoji': true,
+  "gEmojiID': "replace-this",
+  "uEmoji": "$"
 }`;
 
 const settings = new Enmap({provider: new EnmapLevel({name: 'settings'})});

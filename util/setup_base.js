@@ -18,9 +18,11 @@ const config = {
     'councilRole': 'Blob Council',
     'policeRole': 'Blob Police',
     'systemNotice': 'true',
-    'blobCoin': '398579309276823562',
     'minPoints': 5,
-    'maxPoints': 1000
+    'maxPoints': 1000,
+    'customEmoji': true,
+    'gEmojiID': 'replace-this',
+    'uEmoji': '$'
   },
 
   // PERMISSION LEVEL DEFINITIONS.
