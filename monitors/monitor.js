@@ -15,7 +15,7 @@ module.exports = class {
     if (message.channel.type !== 'text') return;
     const settings = message.settings;
     if (message.content.startsWith(settings.prefix)) return;
-    const score = client.points.get(`${message.guild.id}-${message.author.id}`) || { points: 0, level: 0, user: message.author.id, guild: message.guild.id, daily: 1504120109 };
+    const score = client.energy.get(`${message.guild.id}-${message.author.id}`) || { points: 0, level: 0, user: message.author.id, guild: message.guild.id, daily: 1504120109 };
     const timedOut = timeout.get(`${message.guild.id}-${message.author.id}`);
     if (timedOut) return;
     timeout.set(`${message.guild.id}-${message.author.id}`, true);
@@ -30,7 +30,7 @@ module.exports = class {
           message.channel.send(`You've ranked up to ${curLevel}! Ain't that dandy?`);
         score.level = curLevel;
       }
-      client.points.set(`${message.guild.id}-${message.author.id}`, score);
+      client.energy.set(`${message.guild.id}-${message.author.id}`, score);
     }, parseInt(settings.scoreTime) * 60 * 1000);
 
   }
