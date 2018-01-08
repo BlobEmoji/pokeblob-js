@@ -28,6 +28,7 @@ class PokeBlob extends Discord.Client {
     // catalogued, listed, etc.
     this.commands = new Enmap();
     this.aliases = new Enmap();
+    this.ratelimits = new Enmap();
 
     // Now we integrate the use of Evie's awesome Enhanced Map module, which
     // essentially saves a collection to disk. This is great for per-server configs,

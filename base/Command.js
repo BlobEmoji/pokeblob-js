@@ -9,6 +9,7 @@ class Command {
     aliases = new Array(),
     extended = 'No information provided.',
     cost = 0,
+    cooldown = 0,
     botPerms = [],
     permLevel = 'User',
     location = ''
@@ -20,7 +21,8 @@ class Command {
       aliases,
       permLevel,
       botPerms,
-      location
+      location,
+      cooldown
     };
     this.help = { 
       name,
