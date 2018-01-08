@@ -13,12 +13,12 @@ class Search extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) {
     const energy = this.client.energy.get(message.author.id);
     const commonChance = .6;
     const uncommonChance = .35;
     const rareChance = .14;
-    const legendaryChance = .01; // eslint-disable-line no-unused-vars
+    const legendaryChance = .01;
 
     if (energy<=0) {
       await message.channel.send('Not enough energy...');
