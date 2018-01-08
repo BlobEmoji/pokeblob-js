@@ -1,5 +1,4 @@
 const Command = require('../base/Command.js');
-const math = require('math');
 
 class Search extends Command {
   constructor(client) {
@@ -35,7 +34,7 @@ class Search extends Command {
     if (roll<blobChance) {
       //To-do add blob and catch
       var blobTier = '';
-      roll = math.random();
+      roll = Math.random();
       if (roll<commonChance) {
         blobTier = 'common';
       }
