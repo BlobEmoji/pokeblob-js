@@ -24,7 +24,7 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
       return this.client.energy.set(this.fullId, energy);
     }
 
-    takePoints(points) {
+    takeEnergy(points) {
       const energy = this.energy;
       energy.points -= points;
       return this.client.energy.set(this.fullId, energy);
@@ -33,7 +33,7 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
     setLevel(level) {
       const score = this.score;
       score.level = level;
-      return this.client.points.set(this.fullId, score);
+      return this.client.energy.set(this.fullId, score);
     }
 
   };

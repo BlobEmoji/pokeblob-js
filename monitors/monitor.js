@@ -16,6 +16,7 @@ module.exports = class {
     const settings = message.settings;
     if (message.content.startsWith(settings.prefix)) return;
     const score = client.energy.get(`${message.guild.id}-${message.author.id}`) || { points: 0, level: 0, user: message.author.id, guild: message.guild.id, daily: 1504120109 };
+    if (score === 30) return;
     const timedOut = timeout.get(`${message.guild.id}-${message.author.id}`);
     if (timedOut) return;
     timeout.set(`${message.guild.id}-${message.author.id}`, true);
