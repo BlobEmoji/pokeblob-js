@@ -1,5 +1,9 @@
 # Directories
-/data/
+/data/energy/
+/data/inventory/
+/data/settings/
+/data/stats/
+/data/store/
 /node_modules/
 
 # Specific Files
