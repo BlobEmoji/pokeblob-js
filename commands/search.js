@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const Command = require('../base/Command.js');
 const math = require('math');
 
@@ -21,7 +19,7 @@ class Search extends Command {
     const commonChance = .6;
     const uncommonChance = .35;
     const rareChance = .14;
-    const legendaryChance = .01;
+    const legendaryChance = .01; // eslint-disable-line no-unused-vars
 
     if (energy<=0) {
       await message.channel.send('Not enough energy...');
@@ -41,10 +39,10 @@ class Search extends Command {
       if (roll<commonChance) {
         blobTier = 'common';
       }
-      else if (roll>=commonChance&&roll<commonChance+uncommonChance) {
+      else if (roll >= commonChance && roll < commonChance + uncommonChance) {
         blobTier = 'uncommon';
       }
-      else if (roll>=commonChance+uncommonChance&&roll<commonChance+uncommonChance+rareChance) {
+      else if (roll >= commonChance + uncommonChance && roll < commonChance + uncommonChance + rareChance) {
         blobTier = 'rare';
       }
       else {
@@ -52,7 +50,7 @@ class Search extends Command {
       }
       msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} blob**!** You have ${energy} energy remaining.\nType \`.catch\` to try and capture it!\n\`.search\` to let this blob run away and continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
-    else if (roll>=blobChance&&roll<blobChance+moneyChance) {
+    else if (roll >= blobChance && roll < blobChance + moneyChance) {
       var money = Math.ceil(Math.random()*10);
       //To-do add money
       msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money}**!** You have ${energy} energy remaining.\n\`.search\` continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
