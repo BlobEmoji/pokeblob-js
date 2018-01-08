@@ -1,4 +1,4 @@
-// const monitor = require('../monitors/monitor.js');
+const monitor = require('../monitors/monitor.js');
 
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
@@ -27,7 +27,7 @@ module.exports = class {
     // Get the user or member's permission level from the elevation
     const level = this.client.permlevel(message);
     // Run the monitor
-    // monitor.run(this.client, message, level);
+    monitor.run(this.client, message, level);
     
     // Also good practice to ignore any message that does not start with our prefix,
     // which is set in the configuration file.
@@ -62,6 +62,15 @@ module.exports = class {
     // using this const varName = thing OR otherthign; is a pretty efficient
     // and clean way to grab one of 2 values!
     if (!cmd) return;
+
+
+    // Credit for the ratelimit method goes to York#2400
+    const rateLimit = await this.client.ratelimit(message, level, cmd.help.name, cmd.conf.cooldown); 
+    
+    if (typeof rateLimit == 'string') {
+      this.client.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) got ratelimited while running command ${cmd.help.name}`, 'Ratelimit');
+      return message.channel.send(`Please wait ${rateLimit.toPlural()} to run this command.`); //return stop command from executing
+    }
 
     // Some commands may not be useable in DMs. This check prevents those commands from running
     // and return a friendly error message.

@@ -5,7 +5,9 @@ module.exports = (client) => {
 
 
   /*
-  COMMAND COOLDOWN
+  COMMAND RATELIMIT
+
+  Credit for the ratelimit method goes to York#2400
   */
 
   client.ratelimit = async (message, level, key, duration) => {

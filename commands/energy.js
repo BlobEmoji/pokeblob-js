@@ -1,12 +1,13 @@
 const Social = require('../base/Social.js');
 
-class Score extends Social {
+class Energy extends Social {
   constructor(client) {
     super(client, {
-      name: 'score',
+      name: 'energy',
       description: 'Displays your current points.',
       usage: 'score',
       category: 'Economy',
+      cooldown: 5,
       aliases: ['points', 'bal', 'balance'],
       botPerms: ['SEND_MESSAGES'],
       permLevel: 'User'
@@ -19,4 +20,4 @@ class Score extends Social {
   }
 }
 
-module.exports = Score;
+module.exports = Energy;
