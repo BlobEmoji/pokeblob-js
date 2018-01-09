@@ -52,7 +52,7 @@ class Search extends Command {
     else if (roll >= blobChance && roll < blobChance + moneyChance) {
       var money = Math.ceil(Math.random()*10);
       //To-do add money
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money}**!** You have ${energy} energy remaining.\n\`.search\` continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money}<:blobcoin:398579309276823562>**!** You have ${energy} energy remaining.\n\`.search\` continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else {
       msg.edit(`_${message.author} searches through the tall grass and finds..._ nothing**!** You have ${energy} energy remaining.\n\`.search\` to continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
