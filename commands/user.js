@@ -1,5 +1,5 @@
 const Command = require('../base/Command.js');
-const { MessageEmbed } = require('discord.js');
+// const { MessageEmbed } = require('discord.js');
 
 class User extends Command {
   constructor(client) {
