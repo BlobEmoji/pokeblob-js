@@ -1,5 +1,6 @@
 const Command = require('../base/Command.js');
-const blobs = require('../data/blobs/blobs.json')
+const blobs = require('../data/blobs/blobs.json');
+
 class Search extends Command {
   constructor(client) {
     super(client, {
@@ -15,6 +16,9 @@ class Search extends Command {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const energy = await this.client.energy.get(`${message.guild.id}-${message.author.id}`);
+    const cost = 1;
+    energy.points -= cost;
+    await this.client.energy.set(`${message.guild.id}-${message.author.id}`, energy);
     const commonChance = .6;
     const uncommonChance = .35;
     const rareChance = .14;
@@ -63,10 +67,10 @@ class Search extends Command {
     else if (roll >= blobChance && roll < blobChance + moneyChance) {
       var money = Math.ceil(Math.random()*10);
       //To-do add money
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money}<:blobcoin:398579309276823562>**!** You have ${energy} energy remaining.\n\`.search\` continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money}<:blobcoin:398579309276823562>**!** You have ${energy.points} energy remaining.\n\`.search\` continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else {
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ nothing**!** You have ${energy} energy remaining.\n\`.search\` to continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ nothing**!** You have ${energy.points} energy remaining.\n\`.search\` to continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
 
 
