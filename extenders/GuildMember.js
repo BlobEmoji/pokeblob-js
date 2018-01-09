@@ -14,7 +14,7 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
     }
 
     get energy() {
-      if (!this.client.energy.get(this.fullId)) return { points: 0, level: 0, user: this.id, guild: this.guild.id, daily: 1504120109 };
+      if (!this.client.energy.get(this.fullId)) return { energy: 20, level: 0, user: this.id, guild: this.guild.id, daily: 1504120109 };
       return this.client.energy.get(this.fullId);
     }
 
