@@ -37,26 +37,31 @@ class Search extends Command {
     var roll = Math.random();    
     if (roll < blobChance) {
       //To-do add catch
+      var blobTier = '';
       var tierSize = 0;
       var blobName = '';
       var blobId = 0;
       roll = Math.random();
       if (roll < commonChance) {
+        blobTier = 'common';
         tierSize = Object.keys(blobs.common).length;
         blobName = Object.keys(blobs.common)[Math.floor(Math.random() * tierSize)].valueOf();
         blobId = eval('blobs.common.' + blobName + '.id');
       }
       else if (roll >= commonChance && roll < commonChance + uncommonChance) {
+        blobTier = 'uncommon';
         tierSize = Object.keys(blobs.uncommon).length;
         blobName = Object.keys(blobs.uncommon)[Math.floor(Math.random() * tierSize)].valueOf();
         blobId = eval('blobs.uncommon.' + blobName + '.id');
       }
       else if (roll >= commonChance + uncommonChance && roll < commonChance + uncommonChance + rareChance) {
+        blobTier = 'rare';
         tierSize = Object.keys(blobs.rare).length;
         blobName = Object.keys(blobs.rare)[Math.floor(Math.random() * tierSize)].valueOf();
         blobId = eval('blobs.rare.' + blobName + '.id');
       }
       else {
+        blobTier = 'legendary';
         tierSize = Object.keys(blobs.legendary).length;
         blobName = Object.keys(blobs.legendary)[Math.floor(Math.random() * tierSize)].valueOf();
         blobId = eval('blobs.legendary.' + blobName + '.id');
