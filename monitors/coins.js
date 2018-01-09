@@ -22,7 +22,7 @@ module.exports = class {
     setTimeout(() => {
       timeout.set(`${message.guild.id}-${message.author.id}`, false);
       score.coins += points;
-      console.log(`Awarded ${points} coins to ${message.author.username}.`);
+      console.log(`Awarded ${points} coins to ${message.author.username} (${message.author.id}).`);
       const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
       if (score.level < curLevel) {
         if (settings.levelNotice === 'true')
