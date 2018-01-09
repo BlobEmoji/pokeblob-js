@@ -14,7 +14,7 @@ class Search extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const energy = this.client.energy.get(message.author.id);
+    const energy = await this.client.energy.get(`${message.guild.id}-${message.author.id}`);
     const commonChance = .6;
     const uncommonChance = .35;
     const rareChance = .14;
@@ -47,7 +47,7 @@ class Search extends Command {
       else {
         blobTier = 'legendary';
       }
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} blob**!** You have ${energy} energy remaining.\nType \`.catch\` to try and capture it!\n\`.search\` to let this blob run away and continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} blob**!** You have ${energy.points} energy remaining.\nType \`.catch\` to try and capture it!\n\`.search\` to let this blob run away and continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else if (roll >= blobChance && roll < blobChance + moneyChance) {
       var money = Math.ceil(Math.random()*10);

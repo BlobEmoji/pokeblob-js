@@ -20,7 +20,7 @@ class User extends Command {
     const embed = new MessageEmbed()
       .setAuthor(message.author.username, message.author.displayAvatarURL)
       .setTimestamp()
-      .addField('Member Energy', `${energy}`, true)
+      .addField('Member Energy', `${energy.points}`, true)
       .addField('Inventory', `${inventory}`, true)
       .addField('Total Blobs Caught', '<insert info here>', true)
       .setFooter('PokéBlobs');
