@@ -16,15 +16,17 @@ class User extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const target = args[0];
     const energy = await this.client.energy.get(`${message.guild.id}-${target}`);
-    const inventory = await this.client.inventory.get(`${message.guild.id}-${target}`);
-    const embed = new MessageEmbed()
-      .setAuthor(message.author.username, message.author.displayAvatarURL)
-      .setTimestamp()
-      .addField('Member Energy', `${energy.points}`, true)
-      .addField('Inventory', `${inventory}`, true)
-      .addField('Total Blobs Caught', '<insert info here>', true)
-      .setFooter('PokéBlobs');
-    message.channel.send({ embed });
+    const coins = await this.client.coins.get(`${message.guild.id}-${target}`);
+    message.channel.send(`They have ${energy.points} energy and ${coins.coins} coins.`);
+    // const inventory = await this.client.inventory.get(`${message.guild.id}-${target}`);
+    // const embed = new MessageEmbed()
+    //   .setAuthor(message.author.username, message.author.displayAvatarURL)
+    //   .setTimestamp()
+    //   .addField('Member Energy', `${energy.points}`, true)
+    //   .addField('Inventory', `${inventory}`, true)
+    //   .addField('Total Blobs Caught', '<insert info here>', true)
+    //   .setFooter('PokéBlobs');
+    // message.channel.send({ embed });
   }
 }
 
