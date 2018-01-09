@@ -20,7 +20,7 @@ class Search extends Command {
     const rareChance = .14;
     const legendaryChance = .01; // eslint-disable-line no-unused-vars
 
-    if (energy<=0) {
+    if (energy <= 0) {
       await message.channel.send('Not enough energy...');
       return;
     }
@@ -31,7 +31,7 @@ class Search extends Command {
     var moneyChance = 1/3;            
 
     var roll = Math.random();    
-    if (roll<blobChance) {
+    if (roll < blobChance) {
       //To-do add blob and catch
       var blobTier = '';
       roll = Math.random();
