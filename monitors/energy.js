@@ -8,10 +8,10 @@ function giveRandomPoints(min, max) {
 module.exports = class {
 
   static run(client, message, level) {
-    this.givePoints(client, message, level);
+    this.giveEnergy(client, message, level);
   }
 
-  static givePoints(client, message, level) { // eslint-disable-line no-unused-vars
+  static giveEnergy(client, message, level) { // eslint-disable-line no-unused-vars
     if (message.channel.type !== 'text') return;
     const settings = message.settings;
     if (message.content.startsWith(settings.prefix)) return;
@@ -24,7 +24,7 @@ module.exports = class {
     setTimeout(() => {
       timeout.set(`${message.guild.id}-${message.author.id}`, false);
       score.points += points;
-      console.log(`Awarded ${points} to ${message.author.username}`);
+      console.log(`Awarded ${points} energy to ${message.author.username}.`);
       const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
       if (score.level < curLevel) {
         if (settings.levelNotice === 'true')
@@ -35,4 +35,5 @@ module.exports = class {
     }, parseInt(settings.scoreTime) * 60 * 1000);
 
   }
+
 };

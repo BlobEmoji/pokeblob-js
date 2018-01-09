@@ -71,7 +71,10 @@ class Search extends Command {
     }
     else if (roll >= blobChance && roll < blobChance + moneyChance) {
       var money = Math.ceil(Math.random()*10);
-      //To-do add money
+      const coins = await this.client.coins.get(`${message.guild.id}-${message.author.id}`);
+      const findings = money;
+      coins.points += findings;
+      await this.client.coins.set(`${message.guild.id}-${message.author.id}`, coins);
       msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money}<:blobcoin:398579309276823562>**!** You have ${energy.points} energy remaining.\n\`.search\` continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else {

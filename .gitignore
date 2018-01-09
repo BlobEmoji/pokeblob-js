@@ -4,6 +4,7 @@
 /data/settings/
 /data/stats/
 /data/store/
+/data/coins/
 /node_modules/
 
 # Specific Files
