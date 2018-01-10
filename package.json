@@ -7,8 +7,9 @@
     "start": "node index.js",
     "prepublish": "node util/setup.js"
   },
+  "engineStrict": true,
   "engines": {
-    "node": ">=8"
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
