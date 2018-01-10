@@ -40,31 +40,31 @@ class Search extends Command {
       var blobTier = '';
       var tierSize = 0;
       var blobName = '';
-      var blobId = 0;
+      
       roll = Math.random();
       if (roll < commonChance) {
         blobTier = 'common';
         tierSize = Object.keys(blobs.common).length;
         blobName = Object.keys(blobs.common)[Math.floor(Math.random() * tierSize)].valueOf();
-        blobId = eval('blobs.common.' + blobName + '.id');
+        
       }
       else if (roll >= commonChance && roll < commonChance + uncommonChance) {
         blobTier = 'uncommon';
         tierSize = Object.keys(blobs.uncommon).length;
         blobName = Object.keys(blobs.uncommon)[Math.floor(Math.random() * tierSize)].valueOf();
-        blobId = eval('blobs.uncommon.' + blobName + '.id');
+        
       }
       else if (roll >= commonChance + uncommonChance && roll < commonChance + uncommonChance + rareChance) {
         blobTier = 'rare';
         tierSize = Object.keys(blobs.rare).length;
         blobName = Object.keys(blobs.rare)[Math.floor(Math.random() * tierSize)].valueOf();
-        blobId = eval('blobs.rare.' + blobName + '.id');
+        
       }
       else {
         blobTier = 'legendary';
         tierSize = Object.keys(blobs.legendary).length;
         blobName = Object.keys(blobs.legendary)[Math.floor(Math.random() * tierSize)].valueOf();
-        blobId = eval('blobs.legendary.' + blobName + '.id');
+        
       }
       
       msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} :${blobName}:**!** You have ${energy.points} energy remaining.\nType \`.catch\` to try and capture it!\n\`.search\` to let this blob run away and continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
