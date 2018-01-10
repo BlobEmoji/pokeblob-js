@@ -66,8 +66,8 @@ class Search extends Command {
         blobName = Object.keys(blobs.legendary)[Math.floor(Math.random() * tierSize)].valueOf();
         blobId = eval('blobs.legendary.' + blobName + '.id');
       }
-      const blob = this.client.emojis.get(''+blobId);
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} ${blob}**!** You have ${energy.points} energy remaining.\nType \`.catch\` to try and capture it!\n\`.search\` to let this blob run away and continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} :${blobName}:**!** You have ${energy.points} energy remaining.\nType \`.catch\` to try and capture it!\n\`.search\` to let this blob run away and continue looking (1 energy)\n\`.cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else if (roll >= blobChance && roll < blobChance + moneyChance) {
       var money = Math.ceil(Math.random()*10);
