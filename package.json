@@ -7,7 +7,6 @@
     "start": "node index.js",
     "prepublish": "node util/setup.js"
   },
-  "engineStrict": true,
   "engines": {
     "node": ">=8.0.0"
   },
