@@ -8,6 +8,7 @@ const Enmap = require('enmap');
 const EnmapLevel = require('enmap-level');
 const klaw = require('klaw');
 const path = require('path');
+const dbBackend = require(`${process.cwd()}/util/db.js`);
 
 
 class PokeBlob extends Discord.Client {
@@ -25,12 +26,13 @@ class PokeBlob extends Discord.Client {
     this.aliases = new Enmap();
     this.ratelimits = new Enmap();
 
+    // PostgreSQL database connection
+    this.db = new dbBackend(this.config.dbCredentials);
+
     // Now we integrate the use of Evie's awesome Enhanced Map module, which
     // essentially saves a collection to disk. This is great for per-server configs,
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings' }) });
-    this.energy = new Enmap({ provider: new EnmapLevel({ name: 'energy' }) });
-    this.inventory = new Enmap({ provider: new EnmapLevel({ name: 'inventory' }) });
     this.stats = new Enmap({ provider: new EnmapLevel({ name: 'stats' }) });
     this.store = new Enmap({ provider: new EnmapLevel({ name: 'store' }) });
     this.coins = new Enmap({ provider: new EnmapLevel({ name: 'coins' }) });
@@ -202,8 +204,18 @@ const init = async () => {
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
 
+  // Test the DB connection
+  let connection = await client.db.acquire();
+  try {
+    // checks the connection works, and that the relation exists
+    let res = await connection.query('SELECT id FROM guilds');
+    client.log('Log', `DB connection test succeeded, returned ${res.rows.length} rows.`)
+  } finally {
+    connection.release();
+  }
+
   // Here we login the client.
-  if (client.config.token !== 'testmode')
+  if (!process.env.POKEBLOB_TEST_ONLY)
     client.login(client.config.token);
 
   // End top-level async/await function.

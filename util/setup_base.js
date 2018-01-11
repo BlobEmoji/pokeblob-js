@@ -10,7 +10,7 @@ const config = {
   // Default per-server settings. These settings are entered in a database on first load, 
   // And are then completely ignored from this file. To modify default settings, use the `conf` command.
   // DO NOT REMOVE THIS BEFORE YOUR BOT IS LOADED AND FUNCTIONAL.
-  
+
   'defaultSettings' : {
     'prefix': '-',
     'modLogChannel': 'mod-log',
@@ -22,10 +22,18 @@ const config = {
     'maxPoints': 1000
   },
 
+  'dbCredentials': {
+    'user': 'example_user',
+    'host': 'localhost',
+    'database': 'example_database',
+    'password': null,
+    'port': 5432
+  },
+
   // PERMISSION LEVEL DEFINITIONS.
 
   permLevels: [
-    // This is the lowest permisison level, this is for non-roled users.
+    // This is the lowest permission level, this is for non-roled users.
     { level: 0,
       name: 'User', 
       // Don't bother checking, just return true which allows them to execute any command their

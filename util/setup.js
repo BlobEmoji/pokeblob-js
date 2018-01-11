@@ -35,6 +35,13 @@ let prompts = [
 (async function() {
   console.log('Setting Up PokeBlob Configuration...');
   await settings.defer;
+  
+  if (process.env.POKEBLOB_TEST_ONLY) {
+    await settings.setAsync('default', defaultSettings);
+    fs.writeFileSync('./config.js', baseConfig);
+    return;
+  }
+
   if (!settings.has('default')) {
     prompts = prompts.slice(1);
     console.log('First Start! Inserting default guild settings in the database...');
