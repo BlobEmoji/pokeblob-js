@@ -16,8 +16,9 @@ class Energy extends Social {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const connection = await this.client.db.acquire();
+    let data;
     try {
-      const data = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
+      data = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
     } finally {
       connection.release();
     }

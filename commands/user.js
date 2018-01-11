@@ -16,13 +16,15 @@ class User extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const target = args[0];
     const connection = await this.client.db.acquire();
+    let userData, inventory;
     try {
-      const userData = await this.client.db.getUserData(connection, message.guild.id, target);
-      const inventory = await this.client.db.getUserInventory(connection, message.guild.id, target);
+      userData = await this.client.db.getUserData(connection, message.guild.id, target);
+      inventory = await this.client.db.getUserInventory(connection, message.guild.id, target);
     } finally {
       connection.release();
     }
-    const invFormatting = inventory.map(x => `${x.amount}x ${x.name}`).join();
+    let invFormatting = inventory.map(x => `${x.amount}x ${x.name}`).join();
+    if (invFormatting === '') invFormatting = 'Empty';
     const embed = new MessageEmbed()
       .setAuthor(message.author.username, message.author.displayAvatarURL)
       .setTimestamp()

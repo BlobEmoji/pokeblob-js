@@ -36,7 +36,7 @@ class DatabaseBackend {
         ELSE users.energy
         END,
       last_used_energy = day_timestamp()
-      RETURNING id, guild, energy, last_used_energy
+      RETURNING id, unique_id, guild, energy, last_used_energy
     `, [memberID, guildID])
     return res.rows[0];
   }
