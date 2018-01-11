@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS itemmodes (
     -- what mode this item is, this determines how the code will react to it
-    id INT PRIMARY KEY
+    id SERIAL PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS itemdefs (
@@ -84,6 +84,17 @@ CREATE TABLE IF NOT EXISTS items (
     amount INT CONSTRAINT amount_clamp CHECK (amount >= 0) DEFAULT 1
 );
 
+CREATE TABLE IF NOT EXISTS blobrarity (
+    id SERIAL PRIMARY KEY,
+
+    "name" VARCHAR(128),
+
+    -- scalar for random rolls that decreases winning roll chance
+    -- e.g. 20 will unfairly bias against rolling the blob at an
+    -- avg of 50% lose rate compared to normal blobs
+    rarity_scalar INT DEFAULT 10
+);
+
 CREATE TABLE IF NOT EXISTS blobdefs (
     -- unique ID is a single number used to identify this blob.
     -- this way if the emoji ID changes we won't break everything
@@ -93,7 +104,10 @@ CREATE TABLE IF NOT EXISTS blobdefs (
     emoji_id BIGINT,
 
     -- the name of the emoji in discord
-    emoji_name VARCHAR(32)
+    emoji_name VARCHAR(32),
+
+    -- rarity of this blob
+    rarity INT REFERENCES blobrarity ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS blobs (
