@@ -80,6 +80,12 @@ CREATE TABLE IF NOT EXISTS items (
 
     UNIQUE (item_id, user_id),
 
+    -- is this item currently in effect? (for lures, etc)
+    active BOOLEAN DEFAULT false,
+
+    -- how much 'life' the item has left, (for lures, etc)
+    activity_lifetime INT CONSTRAINT lifetime_clamp CHECK (activity_lifetime >= 0) DEFAULT 10,
+
     -- amount of the item the user possesses at the time
     amount INT CONSTRAINT amount_clamp CHECK (amount >= 0) DEFAULT 1
 );
