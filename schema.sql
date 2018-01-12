@@ -1,6 +1,6 @@
 
 CREATE TABLE IF NOT EXISTS guilds (
-    id BIGINT PRIMARY KEY
+    id BIGINT NOT NULL PRIMARY KEY
 );
 
 CREATE OR REPLACE FUNCTION day_timestamp() RETURNS INT AS
@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS users (
     unique_id BIGSERIAL PRIMARY KEY,
 
     -- this member's discord ID
-    id BIGINT,
+    id BIGINT NOT NULL,
 
     -- the ID of the guild this record corresponds to
-    guild BIGINT REFERENCES guilds ON DELETE RESTRICT,
+    guild BIGINT NOT NULL REFERENCES guilds ON DELETE RESTRICT,
 
     -- this causes conflicts on the same member but not on the same member
     -- in different guilds for testing reasons
@@ -32,12 +32,12 @@ CREATE TABLE IF NOT EXISTS users (
     last_used_energy SMALLINT DEFAULT day_timestamp(),
 
     -- how much money the user has at the present time
-    currency INT,
+    currency INT DEFAULT 0,
 
     -- total currency a user has acquired in their lifetime (non-deductable)
-    accumulated_currency INT,
+    accumulated_currency INT DEFAULT 0,
 
-    search_count INT
+    search_count INT DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS itemmodes (
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS items (
     unique_id BIGSERIAL PRIMARY KEY,
 
     -- ID of the item this corresponds to
-    item_id INT REFERENCES itemdefs ON DELETE RESTRICT,
+    item_id INT NOT NULL REFERENCES itemdefs ON DELETE RESTRICT,
 
     -- ID of the user this item belongs to
-    user_id BIGINT REFERENCES users ON DELETE RESTRICT,
+    user_id BIGINT NOT NULL REFERENCES users ON DELETE RESTRICT,
 
     UNIQUE (item_id, user_id),
 
@@ -107,16 +107,16 @@ CREATE TABLE IF NOT EXISTS blobdefs (
     emoji_name VARCHAR(32),
 
     -- rarity of this blob
-    rarity INT REFERENCES blobrarity ON DELETE RESTRICT
+    rarity INT NOT NULL REFERENCES blobrarity ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS blobs (
 
     unique_id BIGSERIAL PRIMARY KEY,
 
-    blob_id BIGINT REFERENCES blobdefs ON DELETE RESTRICT,
+    blob_id BIGINT NOT NULL REFERENCES blobdefs ON DELETE RESTRICT,
 
-    user_id BIGINT REFERENCES users ON DELETE RESTRICT,
+    user_id BIGINT NOT NULL REFERENCES users ON DELETE RESTRICT,
 
     UNIQUE (blob_id, user_id),
 
