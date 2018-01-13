@@ -48,7 +48,7 @@ class Search extends Command {
         if (response == `${settings.prefix}catch`) {
           // To-do: check if user has, and consume, ball
           await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, blob.unique_id, 1);
-          return message.channel.send(`You captured the **${blob.rarity_name}** <:${blob.emoji_name}:${blob.emoji_id}!`);
+          return message.channel.send(`You captured the **${blob.rarity_name}** <:${blob.emoji_name}:${blob.emoji_id}>!`);
         }
       }
       else if (roll >= blobChance && roll < blobChance + moneyChance) {
