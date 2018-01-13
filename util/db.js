@@ -86,7 +86,7 @@ class DatabaseBackend {
     const res = await client.query(`
       UPDATE items SET
       amount = items.amount - $3
-      WHERE item_id = $1::BIGINT AND user_id = $2::BIGINT AND amount > $3
+      WHERE item_id = $1::BIGINT AND user_id = $2::BIGINT AND amount >= $3
       RETURNING unique_id, item_id, user_id, amount
     `, [itemID, member.unique_id, amount]);
 
@@ -111,7 +111,7 @@ class DatabaseBackend {
     const res = await client.query(`
       UPDATE users
       SET currency = users.currency - $1
-      WHERE unique_id = $2::BIGINT AND currency > $1
+      WHERE unique_id = $2::BIGINT AND currency >= $1
       RETURNING id, guild, currency, accumulated_currency
     `, [amount, member.unique_id]);
 
