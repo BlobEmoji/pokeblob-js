@@ -22,6 +22,7 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
     get energy() {
       return (async() => {
         const connection = await this.client.db.acquire();
+        let data;
         try {
           data = await this.client.db.getUserData(connection, this.guild.id, this.id);
         } finally {
