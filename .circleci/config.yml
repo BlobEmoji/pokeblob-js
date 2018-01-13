@@ -47,7 +47,9 @@ jobs:
 
       - run:
           name: apply schema
-          command: psql -d example_database -U example_user < schema.sql
+          command: |
+            psql -d example_database -U example_user < schema.sql
+            psql -d example_database -U example_user < setup.sql
           environment:
             PGHOST: localhost
             PGPORT: 5432
@@ -103,7 +105,9 @@ jobs:
 
       - run:
           name: apply schema
-          command: psql -d example_database -U example_user < schema.sql
+          command: |
+            psql -d example_database -U example_user < schema.sql
+            psql -d example_database -U example_user < setup.sql
           environment:
             PGHOST: localhost
             PGPORT: 5432

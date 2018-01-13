@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const errorEnum = {
+const errorEnum = { // eslint-disable-line no-unused-vars
   FOREIGN_KEY_VIOLATION: '23503',
   UNIQUE_VIOLATION: '23505',
   CHECK_VIOLATION: '23514'

@@ -203,11 +203,11 @@ const init = async () => {
   }
 
   // Test the DB connection
-  let connection = await client.db.acquire();
+  const connection = await client.db.acquire();
   try {
     // checks the connection works, and that the relation exists
-    let res = await connection.query('SELECT id FROM guilds');
-    client.log('Log', `DB connection test succeeded, returned ${res.rows.length} rows.`)
+    const res = await connection.query('SELECT id FROM guilds');
+    client.log('Log', `DB connection test succeeded, returned ${res.rows.length} rows.`);
   } finally {
     connection.release();
   }

@@ -25,8 +25,8 @@ class User extends Command {
       connection.release();
     }
     let invFormatting = inventory.filter(x => x.amount > 0).map(x => `${x.amount}x ${x.name}`).join();
-    let blobCount = blobData.filter(x => x.caught && x.amount > 0).length;
-    let blobsSeen = blobData.length;
+    const blobCount = blobData.filter(x => x.caught && x.amount > 0).length;
+    const blobsSeen = blobData.length;
     if (invFormatting === '') invFormatting = 'Empty';
     const embed = new MessageEmbed()
       .setAuthor(target.username, target.displayAvatarURL())

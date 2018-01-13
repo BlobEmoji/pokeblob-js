@@ -12,7 +12,6 @@ class Store extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const settings = this.client.settings.get(message.guild.id);
     if (!message.flags.length) {
       return message.reply(`|\`❌\`| ${this.help.usage}`);
     }
@@ -32,7 +31,7 @@ class Store extends Social {
           if (['y', 'yes'].includes(response.toLowerCase())) {
           
             await connection.query('BEGIN');
-            let deducted = await this.client.db.takeUserCurrency(connection, message.guild.id, message.author.id, storeItem.value);
+            const deducted = await this.client.db.takeUserCurrency(connection, message.guild.id, message.author.id, storeItem.value);
             if (!deducted) {
               await connection.query('ROLLBACK');
               return message.channel.send('You don\'t appear to have the funds for that.');
@@ -67,7 +66,7 @@ class Store extends Social {
           if (['y', 'yes'].includes(response.toLowerCase())) {
           
             await connection.query('BEGIN');
-            let deducted = await this.client.db.removeUserItem(connection, message.guild.id, message.author.id, storeItem.id, 1);
+            const deducted = await this.client.db.removeUserItem(connection, message.guild.id, message.author.id, storeItem.id, 1);
             if (!deducted) {
               await connection.query('ROLLBACK');
               return message.channel.send('You don\'t appear to actually have that item.');
