@@ -7,6 +7,8 @@ services:
       dockerfile: .docker/Dockerfile
     depends_on:
       - db
+    volumes:
+      - ./:/app
 
   db:
     image: postgres:10

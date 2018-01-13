@@ -1,8 +1,14 @@
 FROM node:8
 
-WORKDIR /app
-COPY . .
+RUN mkdir -p /nodedeps/node_modules
+
+WORKDIR /nodedeps
+COPY package*.json .
 
 RUN npm install
+
+WORKDIR /app
+
+ENV NODE_PATH=/nodedeps/node_modules
 
 CMD ["npm", "start"]
