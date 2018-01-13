@@ -14,7 +14,7 @@ class Search extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const settings = this.client.settings.get(message.guild.id);
+    const settings = message.settings;
     const connection = await this.client.db.acquire();
     try {
       const { energy } = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
