@@ -44,11 +44,10 @@ class Social extends Command {
       const getPayee = message.guild.member(_user.id);
       const score = getPayee.score;
       if (amount > score.points) {
-        message.response(undefined, `Insufficient funds, you need ${amount}<:blobcoin:398579309276823562>. Your current balance: ${score.points}<:blobcoin:398579309276823562>`);
+        message.response(undefined, `Insufficient funds, you need ${amount} 💰. Your current balance: ${score.points} 💰`);
         return false;
       }
-      getPayee.takeEnergy(amount);
-      this.client.energy.set(getPayee.fullId, score);
+      await getPayee.takeEnergy(amount);
       return true;
     } catch (error) {
       console.log.error(error);
@@ -58,8 +57,8 @@ class Social extends Command {
   async cmdRew(message, user, amount) {
     try {
       const getPayee = message.guild.member(user);
-      getPayee.giveEnergy(parseInt(amount));
-      await message.channel.send(`Awarded <:blobcoin:398579309276823562>${parseInt(amount)} to ${message.guild.member(user).displayName}.`);
+      await getPayee.giveEnergy(parseInt(amount));
+      await message.channel.send(`Awarded 💰 ${parseInt(amount)} to ${message.guild.member(user).displayName}.`);
       return;
     } catch (error) {
       console.log(error);
@@ -69,8 +68,8 @@ class Social extends Command {
   async cmdPun(message, user, amount) {
     try {
       const getPayee = message.guild.member(user);
-      getPayee.takeEnergy(parseInt(amount));
-      await message.channel.send(`Deducted <:blobcoin:398579309276823562>${parseInt(amount)} from ${message.guild.member(user).displayName}.`);
+      await getPayee.takeEnergy(parseInt(amount));
+      await message.channel.send(`Deducted 💰 ${parseInt(amount)} from ${message.guild.member(user).displayName}.`);
       return;
     } catch (error) {
       console.log.error(error);

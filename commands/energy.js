@@ -15,8 +15,14 @@ class Energy extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const energy = await this.client.energy.get(`${message.guild.id}-${message.author.id}`);
-    message.channel.send(`You currently have ${energy.points} energy.`);
+    const connection = await this.client.db.acquire();
+    let data;
+    try {
+      data = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
+    } finally {
+      connection.release();
+    }
+    message.channel.send(`You currently have ${data.energy} energy.`);
   }
 }
 

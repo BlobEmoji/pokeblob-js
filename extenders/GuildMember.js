@@ -9,32 +9,57 @@ module.exports = Structures.extend('GuildMember', DiscordGuildMember => {
     }
 
     get inventory() {
-      if (!this.client.inventory.get(this.fullId)) return false;
-      return this.client.inventory.get(this.fullId);
+      return (async () => {
+        const connection = await this.client.db.acquire();
+        try {
+          return await this.client.db.getUserInventory(connection, this.guild.id, this.id);
+        } finally {
+          connection.release();
+        }
+      })();
     }
 
     get energy() {
-      if (!this.client.energy.get(this.fullId)) return { energy: 20, level: 0, user: this.id, guild: this.guild.id, daily: 1504120109 };
-      return this.client.energy.get(this.fullId);
+      return (async () => {
+        const connection = await this.client.db.acquire();
+        let data;
+        try {
+          data = await this.client.db.getUserData(connection, this.guild.id, this.id);
+        } finally {
+          connection.release();
+        }
+        return data.energy;
+      })();
     }
 
-    giveEnergy(points) {
-      const energy = this.energy;
-      energy.points += points;
-      return this.client.energy.set(this.fullId, energy);
+    async giveEnergy(points) {
+      const connection = await this.client.db.acquire();
+      try {
+        return await this.client.db.modifyMemberEnergy(connection, this.guild.id, this.id, points);
+      } finally {
+        connection.release();
+      }
     }
 
-    takeEnergy(points) {
-      const energy = this.energy;
-      energy.points -= points;
-      return this.client.energy.set(this.fullId, energy);
+    async takeEnergy(points) {
+      const connection = await this.client.db.acquire();
+      try {
+        return await this.client.db.modifyMemberEnergy(connection, this.guild.id, this.id, -points);
+      } finally {
+        connection.release();
+      }
     }
 
-    setLevel(level) {
+    async setLevel(level) {
       const score = this.score;
       score.level = level;
-      return this.client.energy.set(this.fullId, score);
+      
+      const connection = await this.client.db.acquire();
+      try {
+        return await this.client.db.updateMemberEnergy(connection, this.guild.id, this.id, score);
+      } finally {
+        connection.release();
+      }
     }
-
   };
 });

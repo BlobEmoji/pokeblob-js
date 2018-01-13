@@ -14,16 +14,27 @@ class User extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const target = args[0];
-    const energy = await this.client.energy.get(`${message.guild.id}-${target}`);
-    const coins = await this.client.coins.get(`${message.guild.id}-${target}`);
+    const target = (message.mentions.members.length > 0) ? message.mentions.members[0] : message.author;
+    const connection = await this.client.db.acquire();
+    let userData, inventory, blobData;
+    try {
+      userData = await this.client.db.getUserData(connection, message.guild.id, target.id);
+      inventory = await this.client.db.getUserInventory(connection, message.guild.id, target.id);
+      blobData = await this.client.db.getUserBlobs(connection, message.guild.id, target.id);
+    } finally {
+      connection.release();
+    }
+    let invFormatting = inventory.filter(x => x.amount > 0).map(x => `${x.amount}x ${x.name}`).join();
+    const blobCount = blobData.filter(x => x.caught && x.amount > 0).length;
+    const blobsSeen = blobData.length;
+    if (invFormatting === '') invFormatting = 'Empty';
     const embed = new MessageEmbed()
-      .setAuthor(message.author.username, message.author.displayAvatarURL)
+      .setAuthor(target.username, target.displayAvatarURL())
       .setTimestamp()
-      .addField('Member Energy', `${energy.points}`, true)
-      .addField('Coins', `${coins.coins}`, true)
-      .addField('Inventory', 'COMING SOON', true)
-      .addField('Total Blobs Caught', 'COMING SOON', true)
+      .addField('Member Energy', `${userData.energy}`, true)
+      .addField('Inventory', `${invFormatting}`, true)
+      .addField('Total Blobs Caught', `${blobCount} (${blobsSeen} seen)`, true)
+      .addField('Coins', `${userData.currency}`, true)
       .setFooter('PokéBlobs');
     message.channel.send({ embed });
   }
