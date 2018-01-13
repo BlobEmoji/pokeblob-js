@@ -24,7 +24,7 @@ class User extends Command {
     } finally {
       connection.release();
     }
-    let invFormatting = inventory.map(x => `${x.amount}x ${x.name}`).join();
+    let invFormatting = inventory.filter(x => x.amount > 0).map(x => `${x.amount}x ${x.name}`).join();
     let blobCount = blobData.filter(x => x.caught && x.amount > 0).length;
     let blobsSeen = blobData.length;
     if (invFormatting === '') invFormatting = 'Empty';
@@ -34,6 +34,7 @@ class User extends Command {
       .addField('Member Energy', `${userData.energy}`, true)
       .addField('Inventory', `${invFormatting}`, true)
       .addField('Total Blobs Caught', `${blobCount} (${blobsSeen} seen)`, true)
+      .addField('Coins', `${userData.currency}`, true)
       .setFooter('PokéBlobs');
     message.channel.send({ embed });
   }
