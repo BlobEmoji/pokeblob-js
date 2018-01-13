@@ -132,11 +132,12 @@ class DatabaseBackend {
   async giveUserBlob(client, guildID, memberID, blobID, amount) {
     const member = await this.ensureMember(client, guildID, memberID);
     const res = await client.query(`
-      INSERT INTO blobs (blob_id, user_id, amount)
-      VALUES ($1::BIGINT, $2::BIGINT, $3)
+      INSERT INTO blobs (blob_id, user_id, caught, amount)
+      VALUES ($1::BIGINT, $2::BIGINT, TRUE, $3)
       ON CONFLICT (blob_id, user_id)
       DO UPDATE SET
-      amount = blobs.amount + $3
+      amount = blobs.amount + $3,
+      caught = TRUE
       RETURNING unique_id, blob_id, user_id, amount
     `, [blobID, member.unique_id, amount]);
     return res.rows[0];
@@ -187,6 +188,18 @@ class DatabaseBackend {
       SELECT * FROM itemdefs
       WHERE value >= 0 AND LOWER(TRANSLATE("name", '- ', '')) = LOWER(TRANSLATE($1, '- ', ''))
     `, [name]);
+    return res.rows[0];
+  }
+
+  async getRandomWeightedBlob(client) {
+    const res = await client.query(`
+      SELECT blobdefs.unique_id, blobdefs.emoji_id, blobdefs.emoji_name,
+      blobrarity.name AS rarity_name, blobrarity.rarity_scalar
+      FROM blobdefs INNER JOIN blobrarity
+      ON blobdefs.rarity = blobrarity.id
+      ORDER BY random() * blobrarity.rarity_scalar
+      LIMIT 1
+    `);
     return res.rows[0];
   }
 }
