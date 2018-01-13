@@ -28,7 +28,7 @@ class Store extends Social {
 
           if (!storeItem) return message.channel.send('I\'m not sure what that item is, did you spell it correctly?');
 
-          const response = await this.client.awaitReply(message, `Are you sure you want to purchase ${storeItem.name} for <:blobcoin:${settings.blobCoin}>${storeItem.value}?`, undefined, null);
+          const response = await this.client.awaitReply(message, `Are you sure you want to purchase ${storeItem.name} for 💰 ${storeItem.value}?`, undefined, null);
           if (['y', 'yes'].includes(response.toLowerCase())) {
           
             await connection.query('BEGIN');
@@ -63,7 +63,7 @@ class Store extends Social {
 
           if (!storeItem) return message.channel.send('I\'m not sure what that item is, did you spell it correctly?');
 
-          const response = await this.client.awaitReply(message, `Are you sure you want to sell ${storeItem.name} for <:blobcoin:${settings.blobCoin}>${returnPrice}?`, undefined, null);
+          const response = await this.client.awaitReply(message, `Are you sure you want to sell ${storeItem.name} for 💰 ${returnPrice}?`, undefined, null);
           if (['y', 'yes'].includes(response.toLowerCase())) {
           
             await connection.query('BEGIN');
