@@ -67,17 +67,17 @@ class Search extends Command {
         
       }
       const blob = this.client.emojis.find('name', blobName);
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} ${blob}**!** You have ${energy.points} energy remaining.\nType \`${this.client.config.prefix}catch\` to try and capture it!\n\`${this.client.config.prefix}search\` to let this blob run away and continue looking (1 energy)\n\`${this.client.config.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${blobTier} ${blob}**!** You have ${energy.points} energy remaining.\nType \`${settings.prefix}catch\` to try and capture it!\n\`${settings.prefix}search\` to let this blob run away and continue looking (1 energy)\n\`${settings.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else if (roll >= blobChance && roll < blobChance + moneyChance) {
       const money = Math.ceil(Math.random()*10);
       const coins = await this.client.coins.get(`${message.guild.id}-${message.author.id}`);
       coins.coins += money;
       await this.client.coins.set(`${message.guild.id}-${message.author.id}`, coins);
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money} <:blobcoin:398579309276823562>**!** You have ${energy.points} energy remaining.\n\`${this.client.config.prefix}search\` continue looking (1 energy)\n\`${this.client.config.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money} <:blobcoin:398579309276823562>**!** You have ${energy.points} energy remaining.\n\`${settings.prefix}search\` continue looking (1 energy)\n\`${settings.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
     else {
-      msg.edit(`_${message.author} searches through the tall grass and finds..._ nothing**!** You have ${energy.points} energy remaining.\n\`${this.client.config.prefix}search\` to continue looking (1 energy)\n\`${this.client.config.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
+      msg.edit(`_${message.author} searches through the tall grass and finds..._ nothing**!** You have ${energy.points} energy remaining.\n\`${settings.prefix}search\` to continue looking (1 energy)\n\`${settings.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
     }
 
 
