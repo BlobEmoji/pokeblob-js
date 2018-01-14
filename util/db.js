@@ -143,6 +143,19 @@ class DatabaseBackend {
     return res.rows[0];
   }
 
+  async takeUserBlob(client, guildID, memberID, blobID, amount) {
+    const member = await this.ensureMember(client, guildID, memberID);
+    const res = await client.query(`
+      UPDATE blobs SET
+      amount = blobs.amount - $3
+      WHERE blob_id = $1::BIGINT AND unique_id = $2::BIGINT AND amount >= $3
+      RETURNING unique_id, blob_id, user_id, amount
+    `, [blobID, member.unique_id, amount]);
+
+    // if this returns undefined the user doesn't have the required blob count
+    return res.rows[0];
+  }
+
   async getUserData(client, guildID, memberID) {
     const member = await this.ensureMember(client, guildID, memberID);
     const res = await client.query(`
