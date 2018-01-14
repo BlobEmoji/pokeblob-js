@@ -14,7 +14,8 @@ class User extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const target = (message.mentions.members.length > 0) ? message.mentions.members[0] : message.author;
+    const firstMention = message.mentions.users.first();
+    const target = (firstMention) ? firstMention : message.author;
     const connection = await this.client.db.acquire();
     let userData, inventory, blobData;
     try {
@@ -25,7 +26,8 @@ class User extends Command {
       connection.release();
     }
     let invFormatting = inventory.filter(x => x.amount > 0).map(x => `${x.amount}x ${x.name}`).join(', ');
-    const blobCount = blobData.filter(x => x.caught && x.amount > 0).length;
+    const blobsOwned = blobData.filter(x => x.caught);
+    const blobCount = blobsOwned.filter(x => x.amount > 0).length;
     const blobsSeen = blobData.length;
     if (invFormatting === '') invFormatting = 'Empty';
     const embed = new MessageEmbed()
@@ -33,7 +35,7 @@ class User extends Command {
       .setTimestamp()
       .addField('Member Energy', `${userData.energy}`, true)
       .addField('Inventory', `${invFormatting}`, true)
-      .addField('Total Blobs Caught', `${blobCount} (${blobsSeen} seen)`, true)
+      .addField('Blobs On Hand', `${blobCount} (${blobsOwned.length} ever owned, ${blobsSeen} seen)`, true)
       .addField('Coins', `${userData.currency}`, true)
       .setFooter('PokéBlobs');
     message.channel.send({ embed });
