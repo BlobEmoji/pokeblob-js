@@ -5,6 +5,7 @@ class Inventory extends Command {
     super(client, {
       name: 'inventory',
       description: 'Display the items in your inventory.',
+      category: 'Pokèblob',
       usage: 'inventory',
       aliases: ['inv'],
       botPerms: ['SEND_MESSAGES'],

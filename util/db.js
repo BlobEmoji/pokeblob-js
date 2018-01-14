@@ -129,6 +129,15 @@ class DatabaseBackend {
     `, [blobID, member.unique_id]);
   }
 
+  async getBlobID(client, blobName) {
+    const res = await client.query(`
+        SELECT emoji_id FROM blobdefs WHERE emoji_name = $1
+    `, [blobName]);
+
+    // this returns undefined if the emoji is not in the database I guess
+    return res.rows[0];
+  }
+
   async giveUserBlob(client, guildID, memberID, blobID, amount) {
     const member = await this.ensureMember(client, guildID, memberID);
     const res = await client.query(`
