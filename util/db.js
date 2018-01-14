@@ -148,7 +148,7 @@ class DatabaseBackend {
     const res = await client.query(`
       UPDATE blobs SET
       amount = blobs.amount - $3
-      WHERE blob_id = $1::BIGINT AND unique_id = $2::BIGINT AND amount >= $3
+      WHERE blob_id = $1::BIGINT AND user_id = $2::BIGINT AND amount >= $3
       RETURNING unique_id, blob_id, user_id, amount
     `, [blobID, member.unique_id, amount]);
 
@@ -224,6 +224,23 @@ class DatabaseBackend {
       LIMIT 1
     `);
     return res.rows[0];
+  }
+
+  async checkHasBlobs(client, guildID, senderID, senderBlobID, receiverID, receiverBlobID) {
+    const sender = await this.ensureMember(client, guildID, senderID);
+    const receiver = await this.ensureMember(client, guildID, receiverID);
+    const res = await client.query(`
+      SELECT users.id AS user_id FROM blobs
+      INNER JOIN users ON blobs.user_id = users.unique_id
+      WHERE
+      ((blobs.blob_id = $2::BIGINT AND blobs.user_id = $1::BIGINT) OR
+      (blobs.blob_id = $4::BIGINT AND blobs.user_id = $3::BIGINT)) AND
+      blobs.amount > 0
+    `, [sender.unique_id, senderBlobID, receiver.unique_id, receiverBlobID]);
+
+    // returns the discord IDs of those who pass this check
+    // if the length is equal to 2, both users passed
+    return res.rows.map(x => x.user_id);
   }
 }
 
