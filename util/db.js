@@ -129,15 +129,6 @@ class DatabaseBackend {
     `, [blobID, member.unique_id]);
   }
 
-  async getBlobID(client, blobName) {
-    const res = await client.query(`
-        SELECT emoji_id FROM blobdefs WHERE emoji_name = $1
-    `, [blobName]);
-
-    // this returns undefined if the emoji is not in the database
-    return res.rows[0];
-  }
-
   async giveUserBlob(client, guildID, memberID, blobID, amount) {
     const member = await this.ensureMember(client, guildID, memberID);
     const res = await client.query(`
@@ -210,6 +201,16 @@ class DatabaseBackend {
       SELECT * FROM itemdefs
       WHERE value >= 0 AND LOWER(TRANSLATE("name", '- ', '')) = LOWER(TRANSLATE($1, '- ', ''))
     `, [name]);
+    return res.rows[0];
+  }
+
+  async getBlobByName(client, blobName) {
+    const res = await client.query(`
+        SELECT * FROM blobdefs
+        WHERE LOWER(TRANSLATE(emoji_name, '- ', '')) = LOWER(TRANSLATE($1, '- ', ''))
+    `, [blobName]);
+
+    // this returns undefined if the emoji is not in the database
     return res.rows[0];
   }
 

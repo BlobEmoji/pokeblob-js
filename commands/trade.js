@@ -18,11 +18,9 @@ class Trade extends Command {
     const settings = message.settings;
     const connection = await this.client.db.acquire();
     try {
-      const yourBlobID = await this.client.db.getBlobID(connection, yourBlob);
-      const usersBlobID = await this.client.db.getBlobID(connection, usersBlob);
-      console.log(yourBlobID);
-      console.log(usersBlobID);
-      message.channel.send(`Trading your <:${yourBlob}:${yourBlobID.emoji_id}> for ${message.mentions.users.first().tag}'s <:${usersBlob}:${usersBlobID.emoji_id}>.\nType\`.confirm\` to send a trade request\nType \`.cancel\` to cancel trade.`);
+      const yourBlobData = await this.client.db.getBlobByName(connection, yourBlob);
+      const usersBlobData = await this.client.db.getBlobByName(connection, usersBlob);
+      message.channel.send(`Trading your <:${yourBlob}:${yourBlobData.emoji_id}> for ${message.mentions.users.first().tag}'s <:${usersBlob}:${usersBlobData.emoji_id}>.\nType\`.confirm\` to send a trade request\nType \`.cancel\` to cancel trade.`);
       const filter = m => (m.author.id == message.author.id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
       let response;
       try {
@@ -31,7 +29,7 @@ class Trade extends Command {
         return;
       }
       if (response == `${settings.prefix}confirm`) {
-        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.username}${message.author.discriminator}. Trading your <:${usersBlob}:${usersBlobID.emoji_id}> for ${message.author.username}${message.author.discriminator}'s <:${yourBlob}:${yourBlobID.emoji_id}>`);
+        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.username}${message.author.discriminator}. Trading your <:${usersBlob}:${usersBlobData.emoji_id}> for ${message.author.username}${message.author.discriminator}'s <:${yourBlob}:${yourBlobData.emoji_id}>`);
       }
       
     } finally {
