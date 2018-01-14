@@ -29,7 +29,23 @@ class Trade extends Command {
         return;
       }
       if (response == `${settings.prefix}confirm`) {
-        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.username}${message.author.discriminator}. Trading your <:${usersBlob}:${usersBlobData.emoji_id}> for ${message.author.username}${message.author.discriminator}'s <:${yourBlob}:${yourBlobData.emoji_id}>`);
+        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.tag}. Trading your <:${usersBlob}:${usersBlobData.emoji_id}> for ${message.author.tag}'s <:${yourBlob}:${yourBlobData.emoji_id}>`);
+        const filter = m => (m.author.id == message.mentions.users.first().id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
+        let response;
+        try {
+          response = (await message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })).first().content;
+        } catch (e) {
+          return;
+        }
+        if (response == `${settings.prefix}confirm`) {
+          message.channel.send(`Trade between ${message.author.tag} and ${message.mentions.users.first().tag} confirmed.`);
+          await this.client.db.takeUserBlob(connection, message.guild.id, message.author.id, yourBlobData.emoji_id, 1);
+          await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, usersBlobData.emoji_id, 1);
+          await this.client.db.takeUserBlob(connection, message.guild.id, message.mentions.users.first().id, usersBlobData.emoji_id, 1);
+          await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, yourBlobData.emoji_id, 1);
+        } else if (response == `${settings.prefix}cancel`) {
+          message.channel.send(`Trade between ${message.author.tag} and ${message.mentions.users.first().tag} confirmed.`);
+        }
       }
       
     } finally {
