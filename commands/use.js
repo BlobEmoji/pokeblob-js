@@ -16,8 +16,9 @@ class Use extends Command {
   async run(message, args, level) { //eslint-disable-line no-unused-vars
     const settings = message.settings; // eslint-disable-line no-unused-vars
     const connection = await this.client.db.acquire();
-    try { // eslint-disable-line no-empty
-
+    try {
+      const inventory = this.client.db.getUserInventory(); // eslint-disable-line no-unused-vars
+      console.log(inventory);
     } finally {
       connection.release();
     }
