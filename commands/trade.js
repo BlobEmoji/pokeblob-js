@@ -14,7 +14,7 @@ class Trade extends Command {
     });
   }
 
-  async run(message, [yourBlob, usersBlob], level) { // eslint-disable-line no-unused-vars
+  async run(message, [mention, yourBlob, usersBlob], level) { // eslint-disable-line no-unused-vars
     const settings = message.settings;
     const connection = await this.client.db.acquire();
     try {
