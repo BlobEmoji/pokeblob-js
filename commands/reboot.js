@@ -18,7 +18,7 @@ class Reboot extends Command {
       this.client.commands.forEach(async cmd => {
         await this.client.unloadCommand(cmd);
       });
-      process.exit();
+      process.exit(0);
     } catch (e) {
       console.log(e);
     }
