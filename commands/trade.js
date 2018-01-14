@@ -39,10 +39,10 @@ class Trade extends Command {
         }
         if (response == `${settings.prefix}confirm`) {
           message.channel.send(`Trade between ${message.author.tag} and ${message.mentions.users.first().tag} confirmed.`);
-          await this.client.db.takeUserBlob(connection, message.guild.id, message.author.id, yourBlobData.emoji_id, 1);
-          await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, usersBlobData.emoji_id, 1);
-          await this.client.db.takeUserBlob(connection, message.guild.id, message.mentions.users.first().id, usersBlobData.emoji_id, 1);
-          await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, yourBlobData.emoji_id, 1);
+          await this.client.db.takeUserBlob(connection, message.guild.id, message.author.id, yourBlobData.unique_id, 1);
+          await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, usersBlobData.unique_id, 1);
+          await this.client.db.takeUserBlob(connection, message.guild.id, message.mentions.users.first().id, usersBlobData.unique_id, 1);
+          await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, yourBlobData.unique_id, 1);
         } else if (response == `${settings.prefix}cancel`) {
           message.channel.send(`Trade between ${message.author.tag} and ${message.mentions.users.first().tag} confirmed.`);
         }
