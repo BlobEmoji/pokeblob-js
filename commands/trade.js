@@ -31,7 +31,7 @@ class Trade extends Command {
         return;
       }
       if (response == `${settings.prefix}confirm`) {
-        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.username}${message.author.discriminator}. Trading your <:${usersBlob}:${usersBlobID}> for ${message.author.username}${message.author.discriminator}'s <:${yourBlob}:${yourBlobID}>`);
+        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.username}${message.author.discriminator}. Trading your <:${usersBlob}:${usersBlobID.emoji_id}> for ${message.author.username}${message.author.discriminator}'s <:${yourBlob}:${yourBlobID.emoji_id}>`);
       }
       
     } finally {
