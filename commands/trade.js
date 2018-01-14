@@ -23,7 +23,7 @@ class Trade extends Command {
       console.log(yourBlobID);
       console.log(usersBlobID);
       message.channel.send(`Trading your <:${yourBlob}:${yourBlobID.emoji_id}> for ${message.mentions.users.first().tag}'s <:${usersBlob}:${usersBlobID.emoji_id}>.\nType\`.confirm\` to send a trade request\nType \`.cancel\` to cancel trade.`);
-      const filter = m => (m.author.id == message.author.id && [`${settings.prefix}catch`, `${settings.prefix}cancel`, `${settings.prefix}search`].includes(m.content));
+      const filter = m => (m.author.id == message.author.id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
       let response;
       try {
         response = (await message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })).first().content;
