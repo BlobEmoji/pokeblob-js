@@ -134,7 +134,7 @@ class DatabaseBackend {
         SELECT emoji_id FROM blobdefs WHERE emoji_name = $1
     `, [blobName]);
 
-    // this returns undefined if the emoji is not in the database I guess
+    // this returns undefined if the emoji is not in the database
     return res.rows[0];
   }
 
