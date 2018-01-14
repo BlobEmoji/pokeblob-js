@@ -15,12 +15,23 @@ class Trade extends Command {
   }
 
   async run(message, [yourBlob, usersBlob], level) { // eslint-disable-line no-unused-vars
+    const settings = message.settings;
     const connection = await this.client.db.acquire();
     try {
       const yourBlobID = await this.client.db.getBlobID(connection, yourBlob);
       const usersBlobID = await this.client.db.getBlobID(connection, usersBlob);
       message.channel.send(`Trading your <:${yourBlob}:${yourBlobID}> for ${message.mentions.users.first().tag}'s <:${usersBlob}:${usersBlobID}>.\nType\`.confirm\` to send a trade request\nType \`.cancel\` to cancel trade.`);
-      await this.client.db.takeUserBlob(connection, message.guild.id, message.author.id, 1);
+      const filter = m => (m.author.id == message.author.id && [`${settings.prefix}catch`, `${settings.prefix}cancel`, `${settings.prefix}search`].includes(m.content));
+      let response;
+      try {
+        response = (await message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })).first().content;
+      } catch (e) {
+        return;
+      }
+      if (response == `${settings.prefix}confirm`) {
+        message.channel.send(`${message.mentions.users.first()} Please confirm trade with ${message.author.username}${message.author.discriminator}. Trading your <:${usersBlob}:${usersBlobID}> for ${message.author.username}${message.author.discriminator}'s <:${yourBlob}:${yourBlobID}>`);
+      }
+      
     } finally {
       connection.release();
     }
