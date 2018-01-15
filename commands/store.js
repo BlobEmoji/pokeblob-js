@@ -96,7 +96,7 @@ class Store extends Social {
         }
         if (storeItems.length === 0) return message.channel.send('Nothing is for sale');
         const map = storeItems.map(item => `**${item.name}**: ${item.value} <:blobcoin:398579309276823562> | ${item.description}`).join('\n');
-        message.channel.send(`Welcome to the PokèBlob shop! You currently have ${userData.currency} <:blobcoin:398579309276823562>\n${map}`);
+        message.channel.send(`Welcome to the PokéBlob shop! You currently have ${userData.currency} <:blobcoin:398579309276823562>\n${map}`);
       }
     }
   }
