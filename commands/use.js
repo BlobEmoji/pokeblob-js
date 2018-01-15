@@ -26,7 +26,7 @@ class Use extends Command {
       const consumed = await this.client.db.removeUserItem(connection, message.guild.id, message.author.id, item.id, 1);
       if (!consumed) {
         await connection.query('ROLLBACK');
-        return message.channel.send('You can\'t use something you don\'t have.')
+        return message.channel.send('You can\'t use something you don\'t have.');
       }
 
       // apply effects and other check logic here
