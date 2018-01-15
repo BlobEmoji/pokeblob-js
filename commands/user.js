@@ -27,15 +27,15 @@ class User extends Command {
     }
     let invFormatting = inventory.filter(x => x.amount > 0).map(x => `${x.amount}x ${x.name}`).join(', ');
     const blobsOwned = blobData.filter(x => x.caught);
-    const blobCount = blobsOwned.filter(x => x.amount > 0).length;
-    const blobsSeen = blobData.length;
+    const blobsOnHand = blobsOwned.filter(x => x.amount > 0);
+    const blobFormatting = blobsOnHand.slice(0, 5).map(x => `${x.amount}x <:${x.emoji_name}:${x.emoji_id}>`).join(', ') + (blobsOnHand.length > 5 ? '...' : '');
     if (invFormatting === '') invFormatting = 'Empty';
     const embed = new MessageEmbed()
       .setAuthor(target.username, target.displayAvatarURL())
       .setTimestamp()
       .addField('Member Energy', `${userData.energy}`, true)
       .addField('Inventory', `${invFormatting}`, true)
-      .addField('Blobs On Hand', `${blobCount} (${blobsOwned.length} ever owned, ${blobsSeen} seen)`, true)
+      .addField('Blobs On Hand', `${blobFormatting}\n${blobsOnHand.length} on hand (${blobsOwned.length} ever owned, ${blobData.length} seen)`, true)
       .addField('Coins', `${userData.currency}`, true)
       .setFooter('PokéBlobs');
     message.channel.send({ embed });
