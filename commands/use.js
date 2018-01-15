@@ -16,7 +16,7 @@ class Use extends Command {
   async run(message, args, level) { //eslint-disable-line no-unused-vars
     const connection = await this.client.db.acquire();
     try {
-      const consumable = args[0];
+      const consumable = args.join(' ');
       await this.client.db.getStoreItemByName(connection, consumable);
       console.log(consumable);
     } finally {
