@@ -71,6 +71,7 @@ class Trade extends Command {
             return message.channel.send(`Couldn't trade, ${correspondent.tag} doesn't have a <:${usersBlobData.emoji_name}:${usersBlobData.emoji_id}>!`);
           } else {
             await connection.query('COMMIT');
+            this.client.log('Log', `A trade has been performed swapping ${message.author.id}'s ${yourBlobData.emoji_name} (${yourBlobData.unique_id}) for ${correspondent.id}'s ${usersBlobData.emoji_name} (${usersBlobData.unique_id}).`, 'Trade');
             return message.channel.send(`Trade between ${message.author.tag} and ${correspondent.tag} confirmed.`);
           }
         } else if (response == `${settings.prefix}cancel`) {
