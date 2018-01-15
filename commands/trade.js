@@ -32,9 +32,9 @@ class Trade extends Command {
       const conformers = await this.client.db.checkHasBlobs(connection, message.guild.id, message.author.id, yourBlobData.unique_id, correspondent.id, usersBlobData.unique_id);
       if (conformers.length != 2) {
         if (conformers.includes(message.author.id)) {
-          return message.channel.send('Not engaging a trade because the other user doesn\'t have the blob you want.')
+          return message.channel.send('Not engaging a trade because the other user doesn\'t have the blob you want.');
         } else {
-          return message.channel.send('Not engaging a trade because you don\'t have the blob you\'re trying to trade away.')
+          return message.channel.send('Not engaging a trade because you don\'t have the blob you\'re trying to trade away.');
         }
       }
 
@@ -56,7 +56,7 @@ class Trade extends Command {
           return;
         }
         if (response == `${settings.prefix}confirm`) {
-          await connection.query("BEGIN");
+          await connection.query('BEGIN');
 
           const takeFromProvider = await this.client.db.takeUserBlob(connection, message.guild.id, message.author.id, yourBlobData.unique_id, 1);
           const takeFromCorrespondent = await this.client.db.takeUserBlob(connection, message.guild.id, correspondent.id, usersBlobData.unique_id, 1);
@@ -64,13 +64,13 @@ class Trade extends Command {
           await this.client.db.giveUserBlob(connection, message.guild.id, correspondent.id, yourBlobData.unique_id, 1);
 
           if (!takeFromProvider) {
-            await connection.query("ROLLBACK");
+            await connection.query('ROLLBACK');
             return message.channel.send(`Couldn't trade, ${message.author.tag} doesn't have a <:${yourBlobData.emoji_name}:${yourBlobData.emoji_id}>!`);
           } else if (!takeFromCorrespondent) {
-            await connection.query("ROLLBACK");
+            await connection.query('ROLLBACK');
             return message.channel.send(`Couldn't trade, ${correspondent.tag} doesn't have a <:${usersBlobData.emoji_name}:${usersBlobData.emoji_id}>!`);
           } else {
-            await connection.query("COMMIT");
+            await connection.query('COMMIT');
             return message.channel.send(`Trade between ${message.author.tag} and ${correspondent.tag} confirmed.`);
           }
         } else if (response == `${settings.prefix}cancel`) {
