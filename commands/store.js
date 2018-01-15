@@ -95,7 +95,7 @@ class Store extends Social {
         }
         if (storeItems.length === 0) return message.channel.send('Nothing is for sale');
         message.channel.send(storeItems.map(item => 
-          `${item.name}: ${item.value} 💰`).join('\n'), { code: true}
+          `**${item.name}**: ${item.value}<:blobcoin:398579309276823562> | ${item.description}`).join('\n')
         );
       }
     }
