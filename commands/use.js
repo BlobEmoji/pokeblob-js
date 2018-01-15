@@ -19,6 +19,8 @@ class Use extends Command {
       const consumable = args.join(' ');
       const logged = await this.client.db.getStoreItemByName(connection, consumable);
       console.log(logged);
+      await this.client.removeUserItem(connection, message.guild.id, message.author.id, logged.id, 1);
+      message.channel.send(`${message.author} used a ${logged.name}.`);
     } finally {
       connection.release();
     }
