@@ -95,9 +95,8 @@ class Store extends Social {
           connection.release();
         }
         if (storeItems.length === 0) return message.channel.send('Nothing is for sale');
-        message.channel.send(`Welcome to the PokèBlob shop! You currently have ${userData.currency}` + storeItems.map(item => 
-          `**${item.name}**: ${item.value}<:blobcoin:398579309276823562> | ${item.description}`).join('\n')
-        );
+        const map = storeItems.map(item => `**${item.name}**: ${item.value} <:blobcoin:398579309276823562> | ${item.description}`).join('\n');
+        message.channel.send(`Welcome to the PokèBlob shop! You currently have ${userData.currency} <:blobcoin:398579309276823562>\n${map}`);
       }
     }
   }
