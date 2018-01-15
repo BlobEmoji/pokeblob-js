@@ -17,8 +17,8 @@ class Use extends Command {
     const connection = await this.client.db.acquire();
     try {
       const consumable = args.join(' ');
-      await this.client.db.getStoreItemByName(connection, consumable);
-      console.log(consumable);
+      const logged = await this.client.db.getStoreItemByName(connection, consumable);
+      console.log(logged);
     } finally {
       connection.release();
     }
