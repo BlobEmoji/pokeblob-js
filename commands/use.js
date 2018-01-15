@@ -14,11 +14,11 @@ class Use extends Command {
   }
 
   async run(message, args, level) { //eslint-disable-line no-unused-vars
-    const settings = message.settings; // eslint-disable-line no-unused-vars
     const connection = await this.client.db.acquire();
     try {
-      const inventory = await this.client.db.getUserInventory(connection, message.guild.id, message.author.id); // eslint-disable-line no-unused-vars
-      console.log(inventory);
+      const consumable = args[0];
+      await this.client.db.getStoreItemByName(connection, consumable);
+      console.log(consumable);
     } finally {
       connection.release();
     }
