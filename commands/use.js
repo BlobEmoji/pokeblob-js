@@ -17,10 +17,21 @@ class Use extends Command {
     const connection = await this.client.db.acquire();
     try {
       const consumable = args.join(' ');
-      const logged = await this.client.db.getStoreItemByName(connection, consumable);
-      console.log(logged);
-      await this.client.removeUserItem(connection, message.guild.id, message.author.id, logged.id, 1);
-      message.channel.send(`${message.author} used a ${logged.name}.`);
+      const item = await this.client.db.getStoreItemByName(connection, consumable);
+      if (!item) {
+        return message.channel.send('I don\'t know what this item is.');
+      }
+      await connection.query('BEGIN');
+
+      const consumed = await this.client.db.removeUserItem(connection, message.guild.id, message.author.id, item.id, 1);
+      if (!consumed) {
+        await connection.query('ROLLBACK');
+        return message.channel.send('You can\'t use something you don\'t have.')
+      }
+
+      // apply effects and other check logic here
+      await connection.query('COMMIT');
+      message.channel.send(`${message.author} used a ${item.name}, ${item.confirm_use_message}`);
     } finally {
       connection.release();
     }

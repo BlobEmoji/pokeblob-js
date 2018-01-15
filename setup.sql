@@ -194,14 +194,14 @@ COPY itemmodes (id) FROM stdin;
 3
 \.
 
-COPY itemdefs (id, name, value, potential, mode) FROM stdin;
-1	Basic Ball	5	30	1
-2	Great Ball	25	50	1
-3	Ultra Ball	50	75	1
-4	Master Ball	80	95	1
-5	Spikey Fruit	15	5	2
-6	Pudding	40	15	2
-7	Sugar Cube	75	30	2
-8	Blob Lure	30	0	3
+COPY itemdefs (id, name, value, potential, mode, "description", confirm_use_message) FROM stdin;
+1	Basic Ball	5	30	1	A device to catch blobs with 30% chance of success	30% catch rate!
+2	Great Ball	25	50	1	A device to catch blobs with 50% chance of success	50% catch rate!
+3	Ultra Ball	50	75	1	A device to catch blobs with 75% chance of success	75% catch rate!
+4	Master Ball	80	95	1	A device to catch blobs with 95% chance of success	95% catch rate!
+5	Spikey Fruit	15	5	2	Regenerates 5 energy	regenerating 5 energy.
+6	Pudding	40	15	2	Regenerates 15 energy	regenerating 15 energy.
+7	Sugar Cube	75	30	2	Regenerates 30 energy	regenerating 15 energy.
+8	Blob Lure	30	0	3	Increases the chance of finding a blob by 20% for the next 10 searches	their next 10 search attempts will have an increased chance of finding a blob!
 \.
 

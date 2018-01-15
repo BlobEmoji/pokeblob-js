@@ -27,7 +27,7 @@ class Store extends Social {
 
           if (!storeItem) return message.channel.send('I\'m not sure what that item is, did you spell it correctly?');
 
-          const response = await this.client.awaitReply(message, `Are you sure you want to purchase ${storeItem.name} for 💰 ${storeItem.value}? (yes/no)`, undefined, null);
+          const response = await this.client.awaitReply(message, `Are you sure you want to purchase ${storeItem.name} for 💰 ${storeItem.value}? (yes/no)\n"${storeItem.description}"`, undefined, null);
           if (['y', 'yes'].includes(response.toLowerCase())) {
           
             await connection.query('BEGIN');

@@ -63,7 +63,11 @@ CREATE TABLE IF NOT EXISTS itemdefs (
     -- but for an energy regen it might be how much energy it gives you
     "potential" INT,
 
-    mode INT REFERENCES itemmodes ON DELETE RESTRICT
+    mode INT REFERENCES itemmodes ON DELETE RESTRICT,
+
+    "description" TEXT,
+
+    confirm_use_message TEXT
 );
 
 CREATE TABLE IF NOT EXISTS items (
