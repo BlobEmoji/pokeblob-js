@@ -17,7 +17,7 @@ class Use extends Command {
     const settings = message.settings; // eslint-disable-line no-unused-vars
     const connection = await this.client.db.acquire();
     try {
-      const inventory = this.client.db.getUserInventory(connection, message.guild.id, message.author.id); // eslint-disable-line no-unused-vars
+      const inventory = await this.client.db.getUserInventory(connection, message.guild.id, message.author.id); // eslint-disable-line no-unused-vars
       console.log(inventory);
     } finally {
       connection.release();
