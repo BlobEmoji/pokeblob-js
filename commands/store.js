@@ -87,14 +87,15 @@ class Store extends Social {
 
       case ('view'): {
         const connection = await this.client.db.acquire();
-        let storeItems;
+        let storeItems, userData;
         try {
           storeItems = await this.client.db.getStoreItems(connection);
+          userData = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
         } finally {
           connection.release();
         }
         if (storeItems.length === 0) return message.channel.send('Nothing is for sale');
-        message.channel.send(storeItems.map(item => 
+        message.channel.send(`Welcome to the PokèBlob shop! You currently have ${userData.currency}` + storeItems.map(item => 
           `**${item.name}**: ${item.value}<:blobcoin:398579309276823562> | ${item.description}`).join('\n')
         );
       }
