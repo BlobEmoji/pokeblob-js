@@ -83,7 +83,7 @@ class PokeBlob extends Discord.Client {
     try {
       const props = new (require(`${commandPath}${path.sep}${commandName}`))(client);
       props.conf.location = commandPath;
-      client.log('Log', `Loading Command: ${props.help.name}. ??`);
+      client.log('Log', `Loading Command: ${props.help.name}. 👌`);
       if (props.init) {
         props.init(client);
       }
