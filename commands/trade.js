@@ -5,7 +5,7 @@ class Trade extends Command {
     super(client, {
       name: 'trade',
       description: 'Trade blobs with a user.',
-      category: 'PokÃ¨blob',
+      category: 'Pokéblob',
       usage: 'trade <your blob> <users blob>',
       guildOnly: true,
       extended: 'Trade one of your blobs for one of another users blobs. This requires the other user to accept the trade.',
@@ -30,7 +30,7 @@ class Trade extends Command {
       }
 
       const conformers = await this.client.db.checkHasBlobs(connection, message.guild.id, message.author.id, yourBlobData.unique_id, correspondent.id, usersBlobData.unique_id);
-      if (conformers.length != 2) {
+      if (conformers.length !== 2) {
         if (conformers.includes(message.author.id)) {
           return message.channel.send('Not engaging a trade because the other user doesn\'t have the blob you want.');
         } else {
@@ -39,23 +39,23 @@ class Trade extends Command {
       }
 
       message.channel.send(`Trading your <:${yourBlobData.emoji_name}:${yourBlobData.emoji_id}> for ${correspondent.tag}'s <:${usersBlobData.emoji_name}:${usersBlobData.emoji_id}>.\nType\`-confirm\` to send a trade request\nType \`-cancel\` to cancel trade.`);
-      const filter = m => (m.author.id == message.author.id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
+      const filter = m => (m.author.id === message.author.id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
       let response;
       try {
         response = (await message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })).first().content;
       } catch (e) {
         return;
       }
-      if (response == `${settings.prefix}confirm`) {
+      if (response === `${settings.prefix}confirm`) {
         message.channel.send(`${correspondent} Please confirm trade with ${message.author.tag}. Trading your <:${usersBlobData.emoji_name}:${usersBlobData.emoji_id}> for ${message.author.tag}'s <:${yourBlobData.emoji_name}:${yourBlobData.emoji_id}>`);
-        const filter = m => (m.author.id == correspondent.id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
+        const filter = m => (m.author.id === correspondent.id && [`${settings.prefix}confirm`, `${settings.prefix}cancel`].includes(m.content));
         let response;
         try {
           response = (await message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })).first().content;
         } catch (e) {
           return;
         }
-        if (response == `${settings.prefix}confirm`) {
+        if (response === `${settings.prefix}confirm`) {
           await connection.query('BEGIN');
 
           const takeFromProvider = await this.client.db.takeUserBlob(connection, message.guild.id, message.author.id, yourBlobData.unique_id, 1);
@@ -74,7 +74,7 @@ class Trade extends Command {
             this.client.log('Log', `A trade has been performed swapping ${message.author.id}'s ${yourBlobData.emoji_name} (${yourBlobData.unique_id}) for ${correspondent.id}'s ${usersBlobData.emoji_name} (${usersBlobData.unique_id}).`, 'Trade');
             return message.channel.send(`Trade between ${message.author.tag} and ${correspondent.tag} confirmed.`);
           }
-        } else if (response == `${settings.prefix}cancel`) {
+        } else if (response === `${settings.prefix}cancel`) {
           message.channel.send(`Trade between ${message.author.tag} and ${correspondent.tag} cancelled.`);
         }
       }

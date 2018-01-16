@@ -5,7 +5,7 @@ class Search extends Command {
     super(client, {
       name: 'search',
       description: 'Search the tall grass for an item.',
-      category: 'Pokèblob',
+      category: 'Pok�blob',
       usage: 'search',
       guildOnly: true,
       extended: 'Search the tall grass in hopes of finding something. Consumes one energy.',
@@ -39,14 +39,14 @@ class Search extends Command {
 
         msg.edit(`_${message.author} searches through the tall grass and finds..._ a ${blob.rarity_name} <:${blob.emoji_name}:${blob.emoji_id}> (${blob.emoji_name})**!** You have ${energy-1} energy remaining.\nType \`${settings.prefix}catch\` to try and capture it!\n\`${settings.prefix}search\` to let this blob run away and continue looking (1 energy)\n\`${settings.prefix}cancel\` to let the blob run away and stop searching`); // eslint-disable-line no-undef
 
-        const filter = m => (m.author.id == message.author.id && [`${settings.prefix}catch`, `${settings.prefix}cancel`, `${settings.prefix}search`].includes(m.content));
+        const filter = m => (m.author.id === message.author.id && [`${settings.prefix}catch`, `${settings.prefix}cancel`, `${settings.prefix}search`].includes(m.content));
         let response;
         try {
           response = (await message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })).first().content;
         } catch (e) {
           return;
         }
-        if (response == `${settings.prefix}catch`) {
+        if (response === `${settings.prefix}catch`) {
           // To-do: check if user has, and consume, ball
           await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, blob.unique_id, 1);
           return message.channel.send(`You captured the **${blob.rarity_name}** <:${blob.emoji_name}:${blob.emoji_id}>!`);
@@ -55,7 +55,7 @@ class Search extends Command {
       else if (roll >= blobChance && roll < blobChance + moneyChance) {
         const money = Math.ceil(Math.random()*10);
         await this.client.db.giveUserCurrency(connection, message.guild.id, message.author.id, money);
-        msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money} 💰**!** You have ${energy-1} energy remaining.\n\`${settings.prefix}search\` continue looking (1 energy).`); // eslint-disable-line no-undef
+        msg.edit(`_${message.author} searches through the tall grass and finds..._ ${money} ??**!** You have ${energy-1} energy remaining.\n\`${settings.prefix}search\` continue looking (1 energy).`); // eslint-disable-line no-undef
       }
       else {
         msg.edit(`_${message.author} searches through the tall grass and finds..._ nothing**!** You have ${energy-1} energy remaining.\n\`${settings.prefix}search\` to continue looking (1 energy).`); // eslint-disable-line no-undef

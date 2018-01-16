@@ -52,6 +52,7 @@
         "destructuring": "any",
         "ignoreReadBeforeAssign": false
       }
-    ]
+    ],
+    "eqeqeq": "error"
   }
 }

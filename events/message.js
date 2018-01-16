@@ -34,7 +34,7 @@ module.exports = class {
     let prefix = false;
 
     for (const thisPrefix of prefixes) {
-      if (message.content.indexOf(thisPrefix) == 0) prefix = thisPrefix;
+      if (message.content.indexOf(thisPrefix) === 0) prefix = thisPrefix;
     }
 
     if (message.content.match(new RegExp(`^<@!?${this.client.user.id}>$`))) {
@@ -63,7 +63,7 @@ module.exports = class {
     // Credit for the ratelimit method goes to York#2400
     const rateLimit = await this.client.ratelimit(message, level, cmd.help.name, cmd.conf.cooldown); 
     
-    if (typeof rateLimit == 'string') {
+    if (typeof rateLimit === 'string') {
       this.client.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) got ratelimited while running command ${cmd.help.name}`, 'Ratelimit');
       return message.channel.send(`Please wait ${rateLimit.toPlural()} to run this command.`); //return stop command from executing
     }

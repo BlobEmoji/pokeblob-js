@@ -5,7 +5,7 @@ class Store extends Social {
     super(client, {
       name: 'store',
       description: 'Display All Store Items',
-      category: 'PokÃ¨blob',
+      category: 'Pokéblob',
       usage: 'store <-buy|-sell|-view>',
       aliases: []
     });

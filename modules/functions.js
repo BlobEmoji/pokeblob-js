@@ -59,7 +59,7 @@ module.exports = (client) => {
   This is mostly only used by the Eval and Exec commands.
   */
   client.clean = async (client, text) => {
-    if (text && text.constructor.name == 'Promise')
+    if (text && text.constructor.name === 'Promise')
       text = await text;
     if (typeof text !== 'string')
       text = require('util').inspect(text, {depth: 0});
