@@ -17,7 +17,7 @@ class Search extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const settings = message.settings;
     const connection = await this.client.db.acquire();
-    const escapedPrefix = settings.prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const escapedPrefix = settings.prefix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
     try {
       const { energy } = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
@@ -77,11 +77,18 @@ class Search extends Command {
           const consumed = await this.client.db.removeUserItem(connection, message.guild.id, message.author.id, ballUsed.item_id, 1);
           if (!consumed) {
             await connection.query('ROLLBACK');
-            return message.channel.send(`You try to use your ${ballUsed.name}, but for some reason it's disappeared from you. Did you use it elsewhere?`)
+            return message.channel.send(`You try to use your ${ballUsed.name}, but for some reason it's disappeared from you. Did you use it elsewhere?`);
           } else {
-            await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, blob.unique_id, 1);
-            await connection.query('COMMIT');
-            return message.channel.send(`You captured the **${blob.rarity_name}** <:${blob.emoji_name}:${blob.emoji_id}> with your ${ballUsed.name}!`);
+            const successChance = ballUsed.potential / 100;
+            const catchRoll = Math.random();
+            if (catchRoll < successChance) {
+              await this.client.db.giveUserBlob(connection, message.guild.id, message.author.id, blob.unique_id, 1);
+              await connection.query('COMMIT');
+              return message.channel.send(`You captured the **${blob.rarity_name}** <:${blob.emoji_name}:${blob.emoji_id}> with your ${ballUsed.name}!\n\`${settings.prefix}search\` to look for more (1 energy)`);
+            } else {
+              await connection.query('COMMIT');
+              return message.channel.send(`You try to use your ${ballUsed.name}, but the <:${blob.emoji_name}:${blob.emoji_id}> breaks free and runs away! You have ${energy-1} energy remaining.\n\`${settings.prefix}search\` to continue looking (1 energy)`);
+            }
           }
         }
       }
