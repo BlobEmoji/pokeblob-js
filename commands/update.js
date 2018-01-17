@@ -1,4 +1,4 @@
-const Command = require('..//base/Command.js');
+const Command = require('../base/Command.js');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
 

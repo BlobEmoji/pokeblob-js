@@ -5,7 +5,7 @@ class Use extends Command {
     super(client, {
       name: 'use',
       description: 'Uses an item from your inventory.',
-      category: 'Pokéblob',
+      category: 'PokÃ©blob',
       usage: 'use <item number>',
       guildOnly: true,
       botPerms: ['SEND_MESSAGES'],

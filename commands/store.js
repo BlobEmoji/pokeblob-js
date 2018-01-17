@@ -1,6 +1,6 @@
-const Social = require('../base/Command.js');
+const Command = require('../base/Command.js');
 
-class Store extends Social {
+class Store extends Command {
   constructor(client) {
     super(client, {
       name: 'store',
