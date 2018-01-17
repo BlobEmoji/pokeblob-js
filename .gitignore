@@ -1,12 +1,6 @@
 # Directories
-/data/energy/
-/data/inventory/
 /data/settings/
-/data/stats/
-/data/store/
-/data/coins/
 /node_modules/
 
 # Specific Files
 config.js
-package-lock.json

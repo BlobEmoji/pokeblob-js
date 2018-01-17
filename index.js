@@ -33,7 +33,6 @@ class PokeBlob extends Discord.Client {
     // essentially saves a collection to disk. This is great for per-server configs,
     // and makes things extremely easy for this purpose.
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings' }) });
-    this.stats = new Enmap({ provider: new EnmapLevel({ name: 'stats' }) });
   }
 
   /*
