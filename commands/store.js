@@ -29,7 +29,7 @@ class Store extends Command {
         const { name, amount } = this.detectAmount(args);
 
         if (amount <= 0) {
-          return message.channel.send('You must buy a >0 amount of items from the store.');
+          return message.channel.send('You must buy at least one item from the store.');
         } else if (amount >= 100) {
           return message.channel.send('I\'m not even sure if I have that much stock on me..');
         }
@@ -68,7 +68,7 @@ class Store extends Command {
         const { name, amount } = this.detectAmount(args);
 
         if (amount <= 0) {
-          return message.channel.send('You must sell a >0 amount of items to the store.');
+          return message.channel.send('You must sell at least one item to the store.');
         } else if (amount >= 100) {
           return message.channel.send('I won\'t be able to hold that much stuff!');
         }
