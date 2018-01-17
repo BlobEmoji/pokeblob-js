@@ -53,6 +53,7 @@
         "ignoreReadBeforeAssign": false
       }
     ],
-    "eqeqeq": "error"
+    "eqeqeq": "error",
+    "eol-last": "error"
   }
 }

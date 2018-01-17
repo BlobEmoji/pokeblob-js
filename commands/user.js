@@ -9,7 +9,7 @@ class User extends Command {
       category: 'Moderation',
       usage: 'user <id>',
       botPerms: ['EMBED_LINKS', 'SEND_MESSAGES'],
-      permLevel: 'Trainee'
+      permLevel: 'Council'
     });
   }
 
