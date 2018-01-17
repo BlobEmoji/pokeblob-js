@@ -156,6 +156,34 @@ class DatabaseBackend {
     return res.rows[0];
   }
 
+  async giveUserEffect(client, guildID, memberID, effectID, life) {
+    const member = await this.ensureMember(client, guildID, memberID);
+    const res = await client.query(`
+      INSERT INTO effects (effect_id, user_id, life)
+      VALUES ($1::BIGINT, $2::BIGINT, $3)
+      ON CONFLICT (effect_id, user_id)
+      DO UPDATE SET
+      life = effects.life + $3
+      RETURNING unique_id, effect_id, user_id, life
+    `, [effectID, member.unique_id, life]);
+    return res.rows[0];
+  }
+
+  async consumeUserEffects(client, guildID, memberID, effectType) {
+    const member = await this.ensureMember(client, guildID, memberID);
+    const res = await client.query(`
+      UPDATE effects SET
+      life = effects.life - 1
+      FROM effectdefs
+      WHERE user_id = $1::BIGINT AND life >= 1
+      AND effects.effect_id = effectdefs.unique_id AND effectdefs.type = $2
+      RETURNING effects.unique_id, effects.effect_id, effects.user_id, effects.life, effectdefs.name
+    `, [member.unique_id, effectType]);
+
+    // returns relevant effects
+    return res.rows;
+  }
+
   async getUserData(client, guildID, memberID) {
     const member = await this.ensureMember(client, guildID, memberID);
     const res = await client.query(`
@@ -183,6 +211,18 @@ class DatabaseBackend {
       blobdefs.emoji_id, blobdefs.emoji_name
       FROM blobs
       INNER JOIN blobdefs ON blobs.blob_id = blobdefs.unique_id
+      WHERE user_id = $1::BIGINT
+    `, [member.unique_id]);
+    return res.rows;
+  }
+
+  async getUserEffects(client, guildID, memberID) {
+    const member = await this.ensureMember(client, guildID, memberID);
+    const res = await client.query(`
+      SELECT effects.unique_id, effects.effect_id, effects.life,
+      effectdefs.name
+      FROM effects
+      INNER JOIN effectdefs ON effects.effect_id = effectdefs.unique_id
       WHERE user_id = $1::BIGINT
     `, [member.unique_id]);
     return res.rows;

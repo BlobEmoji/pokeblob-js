@@ -17,11 +17,12 @@ class User extends Command {
     const firstMention = message.mentions.users.first();
     const target = (firstMention) ? firstMention : message.author;
     const connection = await this.client.db.acquire();
-    let userData, inventory, blobData;
+    let userData, inventory, blobData, effectData;
     try {
       userData = await this.client.db.getUserData(connection, message.guild.id, target.id);
       inventory = await this.client.db.getUserInventory(connection, message.guild.id, target.id);
       blobData = await this.client.db.getUserBlobs(connection, message.guild.id, target.id);
+      effectData = await this.client.db.getUserEffects(connection, message.guild.id, target.id);
     } finally {
       connection.release();
     }
@@ -30,6 +31,8 @@ class User extends Command {
     const blobsOnHand = blobsOwned.filter(x => x.amount > 0);
     const blobFormatting = blobsOnHand.slice(0, 5).map(x => `${x.amount}x <:${x.emoji_name}:${x.emoji_id}>`).join(', ') + (blobsOnHand.length > 5 ? '...' : '');
     if (invFormatting === '') invFormatting = 'Empty';
+    let effectFormatting = effectData.filter(x => x.life > 0).map(x => `${x.name} (${x.life})`).join(', ');
+    if (effectFormatting === '') effectFormatting = 'None';
     const embed = new MessageEmbed()
       .setAuthor(target.username, target.displayAvatarURL())
       .setTimestamp()
@@ -37,6 +40,7 @@ class User extends Command {
       .addField('Inventory', `${invFormatting}`, true)
       .addField('Blobs On Hand', `${blobFormatting}\n${blobsOnHand.length} on hand (${blobsOwned.length} ever owned, ${blobData.length} seen)`, true)
       .addField('Coins', `${userData.currency}`, true)
+      .addField('Effects', `${effectFormatting}`, true)
       .setFooter('PokéBlobs');
     message.channel.send({ embed });
   }
