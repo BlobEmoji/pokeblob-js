@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS itemdefs (
     -- the behavior of these items should be determinable just from their records
     -- however in edge cases or for other reasons the ID can be used to specify
     -- specific unique behaviors if required.
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
 
     -- name of this item, and therefore how it should display as text.
     "name" VARCHAR(128),
@@ -134,4 +134,34 @@ CREATE TABLE IF NOT EXISTS blobs (
     caught BOOLEAN DEFAULT false,
 
     amount INT CONSTRAINT amount_clamp CHECK (amount >= 0) DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS effecttypes (
+    id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS effectdefs (
+
+    unique_id SERIAL PRIMARY KEY,
+
+    "name" TEXT,
+
+    -- this effect's 'potential', if applicable.
+    "potential" INT,
+
+    "type" INT NOT NULL REFERENCES effecttypes
+);
+
+CREATE TABLE IF NOT EXISTS effects (
+
+    unique_id BIGSERIAL PRIMARY KEY,
+
+    effect_id INT NOT NULL REFERENCES effectdefs ON DELETE RESTRICT,
+
+    user_id BIGINT NOT NULL REFERENCES users ON DELETE RESTRICT,
+
+    UNIQUE(effect_id, user_id),
+
+    -- how much 'life' this effect has left before it expires
+    life INT CONSTRAINT life_clamp CHECK (life >= 0) DEFAULT 0
 );
