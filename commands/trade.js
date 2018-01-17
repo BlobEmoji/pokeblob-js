@@ -5,7 +5,7 @@ class Trade extends Command {
     super(client, {
       name: 'trade',
       description: 'Trade blobs with a user.',
-      category: 'Pokéblob',
+      category: 'PokÃ©blob',
       usage: 'trade <your blob> <users blob>',
       guildOnly: true,
       extended: 'Trade one of your blobs for one of another users blobs. This requires the other user to accept the trade.',
