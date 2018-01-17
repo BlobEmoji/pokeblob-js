@@ -7,7 +7,6 @@ jobs:
   "build and run 8.9.1":
     docker:
       - image: circleci/node:8.9.1-stretch
-
       - image: circleci/postgres:latest
         environment:
           POSTGRES_USER: example_user
@@ -53,7 +52,6 @@ jobs:
           environment:
             PGHOST: localhost
             PGPORT: 5432
-
       # run tests!
       - run:
           name: faux start bot
