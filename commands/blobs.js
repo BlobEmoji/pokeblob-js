@@ -14,7 +14,7 @@ class Blobs extends Command {
     });
   }
 
-  async run(message, args, level) {
+  async run(message, args, level) { // eslint-disable-line no-unused-vars
     const allArgs = args.join(' ').trim();
     const firstMention = message.mentions.users.first();
     let parseID;
@@ -36,8 +36,6 @@ class Blobs extends Command {
     const onHandFormatting = blobsOnHand.map(x => x.amount > 1 ? `${x.amount}x <:${x.emoji_name}:${x.emoji_id}>` : `<:${x.emoji_name}:${x.emoji_id}>`).join(', ');
     const onceOwnedFormatting = blobsOnceOwned.map(x => `<:${x.emoji_name}:${x.emoji_id}>`).join(', ');
     const seenFormatting = blobsSeen.map(x => `<:${x.emoji_name}:${x.emoji_id}>`).join(', ');
-
-    const finalFormatting = `${onHandFormatting === '' ? '' : 'Blobs currently owned:'}`;
 
     const embed = new MessageEmbed()
       .setAuthor(target.username, target.displayAvatarURL())
