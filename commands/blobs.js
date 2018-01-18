@@ -33,9 +33,9 @@ class Blobs extends Command {
     const blobsOnceOwned = blobsOwned.filter(x => x.amount <= 0);
     const blobsSeen = blobData.filter(x => !x.caught);
 
-    const onHandFormatting = blobsOnHand.map(x => x.amount > 1 ? `${x.amount}x <:${x.emoji_name}:${x.emoji_id}>` : `<:${x.emoji_name}:${x.emoji_id}>`).join(', ');
-    const onceOwnedFormatting = blobsOnceOwned.map(x => `<:${x.emoji_name}:${x.emoji_id}>`).join(', ');
-    const seenFormatting = blobsSeen.map(x => `<:${x.emoji_name}:${x.emoji_id}>`).join(', ');
+    const onHandFormatting = blobsOnHand.slice(0, 18).map(x => x.amount > 1 ? `${x.amount}x <:${x.emoji_name}:${x.emoji_id}>` : `<:${x.emoji_name}:${x.emoji_id}>`).join(', ') + (blobsOnHand.length > 18 ? '...' : '');
+    const onceOwnedFormatting = blobsOnceOwned.slice(0, 18).map(x => `<:${x.emoji_name}:${x.emoji_id}>`).join(', ') + (blobsOnceOwned.length > 18 ? '...' : '');
+    const seenFormatting = blobsSeen.slice(0, 18).map(x => `<:${x.emoji_name}:${x.emoji_id}>`).join(', ') + (blobsSeen.length > 18 ? '...' : '');
 
     const embed = new MessageEmbed()
       .setAuthor(target.username, target.displayAvatarURL())
