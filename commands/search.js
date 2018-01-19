@@ -56,6 +56,7 @@ class Search extends Command {
     const settings = message.settings;
     const connection = await this.client.db.acquire();
     const escapedPrefix = settings.prefix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+    message.delete();
 
     try {
       const { energy } = await this.client.db.getUserData(connection, message.guild.id, message.author.id);
