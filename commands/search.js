@@ -73,7 +73,7 @@ class Search extends Command {
 
       const searchText = lureActive ? 'walks through the tall grass with their Blob Lure and finds' : 'searches through the tall grass and finds';
       let msg = await message.channel.send(`_${message.author} ${searchText}..._`);
-      message.delete();
+      message.delete().catch(x => {});
       await this.client.wait(2500);    
 
       const blobChance = lureActive ? 1/2 : 1/3;
