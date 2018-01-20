@@ -29,6 +29,9 @@ class Trade extends Command {
     if (!correspondent)
       return message.channel.send('I don\'t understand who you\'re trying to trade with. Try using their mention.');
 
+    if (correspondent.user.id === message.author.id)
+      return message.channel.send(`${message.author}, don't you think it's time you got some real friends to trade with?`);
+
     if ((new Date() - message.member.joinedAt) < 604800000)
       return message.channel.send('You haven\'t been in the server long enough to initiate trades yet.');
 
