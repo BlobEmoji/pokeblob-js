@@ -81,6 +81,7 @@ class Search extends Command {
 
       await this.client.db.modifyMemberEnergy(connection, message.guild.id, message.author.id, -1);
 
+      await this.client.db.bumpSearchCount(connection, message.guild.id, message.author.id);
       const activeEffects = await this.client.db.consumeUserEffects(connection, message.guild.id, message.author.id, 1);
       const lureActive = activeEffects.filter(x => x.effect_id === 1)[0];
 
@@ -194,6 +195,7 @@ class Search extends Command {
       }
     } finally {
       this.activeSearches.delete(message.author.id);
+      this.client.db.updateMilestonesBackground(message.channel, message.guild.id, message.author.id);
       connection.release();
     }
   }
