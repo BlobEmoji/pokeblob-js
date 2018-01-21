@@ -82,7 +82,6 @@ class Search extends Command {
       await this.client.db.modifyMemberEnergy(connection, message.guild.id, message.author.id, -1);
 
       const activeEffects = await this.client.db.consumeUserEffects(connection, message.guild.id, message.author.id, 1);
-      const effectIDs = activeEffects.map(x => x.effect_id);
       const lureActive = activeEffects.filter(x => x.effect_id === 1)[0];
 
       const searchText = lureActive ? `walks through the tall grass with their Blob Lure (${lureActive.life} remaining) and finds` : 'searches through the tall grass and finds';
