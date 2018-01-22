@@ -59,7 +59,7 @@ First, we need to install all dependencies.
 
    npm install
 
-After all the dependencies install, you will be prompted for your bots token. Simply paste that into the console, and hit enter. The setup script will write the config for you. After the config is written, you need to then launch the bot with docker-compose.
+While docker-compose installs all of the dependencies itself, you do need to install them yourself to run the setup script, which writes the config for you. After the first install of deps, if you ever rebuild the container, docker-compose can handle that, once the config is written, it stays. 
 
 .. code-block:: sh
 
