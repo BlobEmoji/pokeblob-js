@@ -57,9 +57,9 @@ First, we need to install all dependencies.
 
 .. code-block:: sh
 
-   node util/setup.js
+   node ./util/setup.js
 
-Running util/setup.js will run the setup script. During this, it'll prompt you for your token. Simply input it, and it'll write the config for you.
+Running this setup.js file will prompt you for your token. Simply input it, and it'll write the config for you.
 
 .. code-block:: sh
 
