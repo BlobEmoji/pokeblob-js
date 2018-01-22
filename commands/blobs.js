@@ -59,6 +59,16 @@ class Blobs extends Command {
         return message.channel.send({ embed });
       }
 
+      case ('common'): {
+        const commonBlobs = blobsOnHand.filter(x => x.rarity === 4);
+        for (let index = 0; index < commonBlobs.length; index += 15) {
+          const chunk = commonBlobs.slice(index, index+15);
+          embed.addField(`Common (${index + 1}-${Math.min(commonBlobs.length, index + 15)})`, this.trimFormat(chunk), false);
+        }
+
+        return message.channel.send({ embed });
+      }
+
       default: {
         if (blobsOnHand.length > 0)
           embed.addField(`Blobs owned on hand (${blobsOnHand.length})`, this.trimFormat(blobsOnHand), false);
