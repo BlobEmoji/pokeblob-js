@@ -14,7 +14,7 @@ PokéBlob
 |d.js| |node| |circleci| |issues| |commits|
 
 PokéBlob is the bot created by the Google Emoji team for the 1 year server anniversary.
-It requires Node >=8 and `Discord.js <https://www.npmjs.com/package/discord.js>`__ livrary.
+It requires Node >=8 and `Discord.js <https://www.npmjs.com/package/discord.js>`__ library.
 
 It is not recommended to run an instance of this bot yourself. The code is here primarily for reference and bug fixing.
 
@@ -23,89 +23,46 @@ Prerequisites
 
 This project has a number of requirements for deployment:
 
-- ``git`` and ``npm`, for acquiring ``discord.js``
+- ``git`` and ``npm`, for installing dependencies
 - A PostgreSQL >=9.6 server to store data
-- ``Docker`` and ``docker-compose``
+- Docker and docker-compose (Optional)
 
-git
-###
+Running the Bot
+---------------
 
-Windows
-+++++++
-
-``git`` can be used in Windows either by `Git for Windows <https://git-for-windows.github.io/>`__ or subshells such as `MinGW <http://www.mingw.org/>`__.
-
-Linux
-+++++
-
-``git`` should be available from your system package manager, for example in Debian-based systems:
+Launch with Node
+^^^^^^^^^^^^^^^^
+First, install all dependencies.
 
 .. code-block:: sh
+   npm install
 
-  apt install git
-
-and in Arch-based systems:
-
-.. code-block:: sh
-
-  pacman -S git
-
-PostgreSQL >=9.6
-################
-
-Installation
-++++++++++++
-
-Installation for PostgreSQL varies based on system:
-
-Windows
-^^^^^^^
-
-PostgreSQL for Windows can be installed via the `Windows installers <https://www.postgresql.org/download/windows/>`__ page.
-
-Once you've installed PostgreSQL, open the Start Menu, search for "SQL Shell (psql)", and run it.
-
-If you changed any of the credentials (such as the port) in the installer, type them in, otherwise just press Enter until it asks for your password.
-
-Enter the password you entered into the installer, and psql should load into the postgres user.
-
-Arch Linux
-^^^^^^^^^^
-
-Arch includes up to date PostgreSQL packages in their official repositories. To install, simply run:
+After all the dependencies install, you will be prompted for your bots token. Simply paste that into the console, and hit enter. The setup script will write the config for you.
 
 .. code-block:: sh
+   node .
 
-  pacman -S postgresql
+And the bot will launch.
 
-After installing, you can use ``sudo -u postgres -i psql`` to log in as the default PostgreSQL user.
+Launching with docker-compose
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Debian
-^^^^^^
-
-In order to get specific versions of PostgreSQL on Debian, you will need to add an apt repository.
-
-As apt requires root, you must be superuser for all of the below. (you can become superuser using ``sudo su`` if you are not already.)
-
-To add an apt repository, we need to edit ``/etc/apt/sources.list``, or a subrule for it (e.g. ``/etc/apt/sources.list.d/postgres.list``) to contain the following:
+First, we need to install all dependencies.
 
 .. code-block:: sh
+   npm install
 
-  deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main
-
-(Vary ``stretch-pgdg`` to ``jessie-pgdg``, ``wheezy-pgdg`` depending on your installation)
-
-Once this is done, you must add the PostgreSQL key to apt and update your local package list.
+After all the dependencies install, you will be prompted for your bots token. Simply paste that into the console, and hit enter. The setup script will write the config for you. After the config is written, you need to then launch the bot with docker-compose.
 
 .. code-block:: sh
+   docker-compose up
 
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-  apt update
+This will build the bot. However, the bot will not launch, due to PostgreSQL being slow on the first launch. You just need to do `Ctrl + C` and run `docker-compose up` again.
 
-Finally, we can install PostgreSQL:
+Common Errors
+-------------
+
+If you get an error saying the bot cannot find a package, you simply need to run the following, replacing package name with the name of the package.
 
 .. code-block:: sh
-
-  apt install postgresql-10
-
-Now that PostgreSQL is installed, you can use ``sudo -u postgres -i psql`` to log in as the default PostgreSQL user.
+   npm install <package name>
