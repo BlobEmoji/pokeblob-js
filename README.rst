@@ -11,7 +11,7 @@ PokéBlob
 
 .. |issues| image:: https://img.shields.io/github/issues/BlobEmoji/pokeblob.svg?colorB=3333ff
    :target: https://github.com/BlobEmoji/pokeblob/issues
-   
+
 .. |commits| image:: https://img.shields.io/github/commit-activity/w/BlobEmoji/pokeblob.svg
    :target: https://github.com/BlobEmoji/pokeblob/commits
 
@@ -27,7 +27,7 @@ Prerequisites
 
 This project has a number of requirements for deployment:
 
-- ``git`` and ``npm`, for installing dependencies
+- ``git`` and ``npm``, for installing dependencies
 - A PostgreSQL >=9.6 server to store data
 - Docker and docker-compose (Optional)
 
