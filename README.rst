@@ -2,12 +2,16 @@ PokéBlob
 =========
 
 .. |d.js| image:: https://img.shields.io/badge/Discord.js-12.0-blue.svg
+
 .. |node| image:: https://img.shields.io/badge/Node-8.9.4-brightgreen.svg?label=Node
    :target: https://nodejs.org/en/download/
+
 .. |circleci| image:: https://img.shields.io/circleci/project/github/BlobEmoji/pokeblob.svg?label=CircleCI
    :target: https://circleci.com/gh/BlobEmoji/pokeblob
+
 .. |issues| image:: https://img.shields.io/github/issues/BlobEmoji/pokeblob.svg?colorB=3333ff
    :target: https://github.com/BlobEmoji/pokeblob/issues
+   
 .. |commits| image:: https://img.shields.io/github/commit-activity/w/BlobEmoji/pokeblob.svg
    :target: https://github.com/BlobEmoji/pokeblob/commits
 
@@ -35,11 +39,13 @@ Launch with Node
 First, install all dependencies.
 
 .. code-block:: sh
+
    npm install
 
 After all the dependencies install, you will be prompted for your bots token. Simply paste that into the console, and hit enter. The setup script will write the config for you.
 
 .. code-block:: sh
+
    node .
 
 And the bot will launch.
@@ -50,11 +56,13 @@ Launching with docker-compose
 First, we need to install all dependencies.
 
 .. code-block:: sh
+
    npm install
 
 After all the dependencies install, you will be prompted for your bots token. Simply paste that into the console, and hit enter. The setup script will write the config for you. After the config is written, you need to then launch the bot with docker-compose.
 
 .. code-block:: sh
+
    docker-compose up
 
 This will build the bot. However, the bot will not launch, due to PostgreSQL being slow on the first launch. You just need to do `Ctrl + C` and run `docker-compose up` again.
@@ -65,4 +73,5 @@ Common Errors
 If you get an error saying the bot cannot find a package, you simply need to run the following, replacing package name with the name of the package.
 
 .. code-block:: sh
+
    npm install <package name>
