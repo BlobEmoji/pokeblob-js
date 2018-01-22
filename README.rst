@@ -2,8 +2,9 @@ PokéBlob
 =========
 
 .. |d.js| image:: https://img.shields.io/badge/Discord.js-12.0-blue.svg
+   :target: https://discord.js.org/
 
-.. |node| image:: https://img.shields.io/badge/Node-8.9.4-brightgreen.svg?label=Node
+.. |node| image:: https://img.shields.io/badge/Node-9.4.0-brightgreen.svg?label=Node
    :target: https://nodejs.org/en/download/
 
 .. |circleci| image:: https://img.shields.io/circleci/project/github/BlobEmoji/pokeblob.svg?label=CircleCI
