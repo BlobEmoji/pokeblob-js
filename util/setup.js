@@ -10,7 +10,7 @@ const defaultSettings = `{
   "modLogChannel": "mod-log",
   "councilRole": "Blob Council",
   "policeRole": "Blob Police",
-  "systemNotice": true,
+  "systemNotice": true
 }`;
 
 const settings = new Enmap({provider: new EnmapLevel({name: 'settings'})});
