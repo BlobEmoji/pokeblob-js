@@ -10,7 +10,7 @@ class Trade extends Command {
       usage: 'trade <user>',
       guildOnly: true,
       extended: 'Trade one of your blobs for one of another users blobs. This requires the other user to accept the trade.',
-      botPerms: ['SEND_MESSAGES'],
+      botPerms: ['EMBED_LINKS', 'SEND_MESSAGES'],
       permLevel: 'User'
     });
     this.activeTrades = new Map();
@@ -114,6 +114,8 @@ class Trade extends Command {
     } finally {
       connection.release();
       this.activeTrades.delete(message.author.id);
+      this.client.db.updateMilestonesBackground(message.channel, message.guild.id, message.author.id);
+      this.client.db.updateMilestonesBackground(message.channel, message.guild.id, correspondent.user.id);
     }
   }
 
