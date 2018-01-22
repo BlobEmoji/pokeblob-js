@@ -57,9 +57,9 @@ First, we need to install all dependencies.
 
 .. code-block:: sh
 
-   npm install
+   node util/setup.js
 
-While docker-compose installs all of the dependencies itself, you do need to install them yourself to run the setup script, which writes the config for you. After the first install of deps, if you ever rebuild the container, docker-compose can handle that, once the config is written, it stays. 
+Running util/setup.js will run the setup script. During this, it'll prompt you for your token. Simply input it, and it'll write the config for you.
 
 .. code-block:: sh
 
