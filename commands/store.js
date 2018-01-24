@@ -53,7 +53,7 @@ class Store extends Command {
             }
             await this.client.db.giveUserItem(connection, message.guild.id, message.author.id, storeItem.id, amount);
             await connection.query('COMMIT');
-            return message.channel.send(`${message.author} You have bought ${amount}x ${storeItem.name} :tada: Now you have <:blobcoin:386630453224013824> ${userData.currency}.`);
+            return message.channel.send(`${message.author} You have bought ${amount}x ${storeItem.name} :tada:\nYou now have <:blobcoin:386630453224013824> ${userData.currency}.`);
           } else
           
           if (['n', 'no', 'cancel'].includes(response.toLowerCase())) {
@@ -94,7 +94,7 @@ class Store extends Command {
             }
             await this.client.db.giveUserCurrency(connection, message.guild.id, message.author.id, returnPrice * amount);
             await connection.query('COMMIT');
-            return message.channel.send(`${message.author} You have sold ${amount}x ${storeItem.name} :tada: Now you have <:blobcoin:386630453224013824> ${userData.currency}.`);
+            return message.channel.send(`${message.author} You have sold ${amount}x ${storeItem.name} :tada:\nYou now have <:blobcoin:386630453224013824> ${userData.currency}.`);
           } else
           
           if (['n', 'no', 'cancel'].includes(response.toLowerCase())) {
