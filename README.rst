@@ -87,7 +87,7 @@ __ https://github.com/AnIdiotsGuide/guidebot-class
 
  MIT License
 
- Copyright (c) ###COPYRIGHT HERE###
+ Copyright (c) 2018 YorkAARGH
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
