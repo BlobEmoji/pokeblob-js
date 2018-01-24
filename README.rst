@@ -79,7 +79,7 @@ If you get an error saying the bot cannot find a package, you simply need to run
    
 Licence Notice
 --------------
-A portion of this codebased has been built from `AnIdiotsGuide's Guide Bot`__, published under the following license:
+A portion of this codebase has been built from `AnIdiotsGuide's Guide Bot`__, published under the following license:
 
 __ https://github.com/AnIdiotsGuide/guidebot-class
 
