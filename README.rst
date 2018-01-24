@@ -83,7 +83,7 @@ A portion of this codebased has been built from `AnIdiotsGuide's Guide Bot`__, p
 
 __ https://github.com/AnIdiotsGuide/guidebot-class
 
-.. code-block::
+::
 
  MIT License
 
