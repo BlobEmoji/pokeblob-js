@@ -81,7 +81,7 @@ Licence Notice
 --------------
 A portion of this codebase has been built from `AnIdiotsGuide's Guide Bot`__, published under the following license:
 
-__ https://github.com/AnIdiotsGuide/guidebot-class
+__ https://github.com/AnIdiotsGuide/guidebot
 
 ::
 
