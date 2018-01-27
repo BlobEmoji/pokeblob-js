@@ -46,7 +46,7 @@ class PokeBlob extends Discord.Client {
   permlevel(message) {
     let permlvl = 0;
 
-    const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
+    const permOrder = this.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
 
     while (permOrder.length) {
       const currentLevel = permOrder.shift();
@@ -79,15 +79,15 @@ class PokeBlob extends Discord.Client {
 
   loadCommand(commandPath, commandName) {
     try {
-      const props = new (require(`${commandPath}${path.sep}${commandName}`))(client);
+      const props = new (require(`${commandPath}${path.sep}${commandName}`))(this);
       props.conf.location = commandPath;
-      client.log('Log', `Loading Command: ${props.help.name}. 👌`);
+      this.log('Log', `Loading Command: ${props.help.name}. 👌`);
       if (props.init) {
-        props.init(client);
+        props.init(this);
       }
-      client.commands.set(props.help.name, props);
+      this.commands.set(props.help.name, props);
       props.conf.aliases.forEach(alias => {
-        client.aliases.set(alias, props.help.name);
+        this.aliases.set(alias, props.help.name);
       });
       return false;
     } catch (e) {
@@ -97,15 +97,15 @@ class PokeBlob extends Discord.Client {
 
   async unloadCommand(commandPath, commandName) {
     let command;
-    if (client.commands.has(commandName)) {
-      command = client.commands.get(commandName);
-    } else if (client.aliases.has(commandName)) {
-      command = client.commands.get(client.aliases.get(commandName));
+    if (this.commands.has(commandName)) {
+      command = this.commands.get(commandName);
+    } else if (this.aliases.has(commandName)) {
+      command = this.commands.get(this.aliases.get(commandName));
     }
     if (!command) return `The command \`${commandName}\` doesn"t seem to exist, nor is it an alias. Try again!`;
   
     if (command.shutdown) {
-      await command.shutdown(client);
+      await command.shutdown(this);
     }
     delete require.cache[require.resolve(`${commandPath}/${commandName}.js`)];
     return false;
@@ -120,8 +120,8 @@ class PokeBlob extends Discord.Client {
   // getSettings merges the client defaults with the guild settings. guild settings in
   // enmap should only have *unique* overrides that are different from defaults.
   getSettings(id) {
-    const defaults = client.settings.get('default');
-    let guild = client.settings.get(id);
+    const defaults = this.settings.get('default');
+    let guild = this.settings.get(id);
     if (typeof guild !== 'object') guild = {};
     const returnObject = {};
     Object.keys(defaults).forEach((key) => {
@@ -133,8 +133,8 @@ class PokeBlob extends Discord.Client {
   // writeSettings overrides, or adds, any configuration item that is different
   // than the defaults. This ensures less storage wasted and to detect overrides.
   writeSettings(id, newSettings) {
-    const defaults = client.settings.get('default');
-    let settings = client.settings.get(id);
+    const defaults = this.settings.get('default');
+    let settings = this.settings.get(id);
     if (typeof settings !== 'object') settings = {};
     for (const key in newSettings) {
       if (defaults[key] !== newSettings[key]) {
@@ -143,7 +143,7 @@ class PokeBlob extends Discord.Client {
         delete settings[key];
       }
     }
-    client.settings.set(id, settings);
+    this.settings.set(id, settings);
   }
 }
 
