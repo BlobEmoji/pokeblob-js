@@ -1,4 +1,4 @@
-require(`./extenders/Guild.js`);
+require('./extenders/Guild.js');
 // Load up the discord.js library
 const Discord = require('discord.js');
 // We also load the rest of the things we need in this file:
@@ -8,7 +8,7 @@ const Enmap = require('enmap');
 const EnmapLevel = require('enmap-level');
 const klaw = require('klaw');
 const path = require('path');
-const dbBackend = require(`./util/db.js`);
+const dbBackend = require('./util/db.js');
 
 
 class PokeBlob extends Discord.Client {
@@ -107,7 +107,7 @@ class PokeBlob extends Discord.Client {
     if (command.shutdown) {
       await command.shutdown(this);
     }
-    delete require.cache[require.resolve(`${commandPath}/${commandName}.js`)];
+    delete require.cache[require.resolve(`${commandPath}${path.sep}${commandName}.js`)];
     return false;
   }
 
@@ -128,22 +128,6 @@ class PokeBlob extends Discord.Client {
       returnObject[key] = guild[key] ? guild[key] : defaults[key];
     });
     return returnObject;
-  }
-
-  // writeSettings overrides, or adds, any configuration item that is different
-  // than the defaults. This ensures less storage wasted and to detect overrides.
-  writeSettings(id, newSettings) {
-    const defaults = this.settings.get('default');
-    let settings = this.settings.get(id);
-    if (typeof settings !== 'object') settings = {};
-    for (const key in newSettings) {
-      if (defaults[key] !== newSettings[key]) {
-        settings[key] = newSettings[key];
-      } else {
-        delete settings[key];
-      }
-    }
-    this.settings.set(id, settings);
   }
 }
 
@@ -167,7 +151,7 @@ const init = async (options) => {
   klaw('./commands').on('data', (item) => {
     const file = path.parse(item.path);
     if (!file.ext || file.ext !== '.js') return;
-    const response = client.loadCommand(file.dir, `${file.name}${file.ext}`);
+    const response = client.loadCommand(file.dir, `${file.base}`);
     if (response) console.log(response);
   });
 
